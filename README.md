@@ -20,11 +20,10 @@ gmdrec uses an API provided by the beefweb plugin to remotely control a music pl
 
 ### Interface circuit
 
-The circuit comprises a USB-I2C bridge and a I2C digital potentiometer as well as a few passive components.
- 
-The schematics and PCB files are provided in the hardware directory.
+The circuit comprises a USB-I2C bridge and a I2C digital potentiometer as well as a few passive components. 
 
-You can build it yourself or get a preassembled one from me directly.
+The schematics and PCB files are provided in the hardware directory. 
+You can get a preassembled one from me directly.
 
 ### Software
 
@@ -38,6 +37,8 @@ You can build it yourself or get a preassembled one from me directly.
 
 **label_mode**: Optionally, you can use gmdrec to label a disc which has been already recorded. Make sure the number of items on the playlist equals the number of tracks on the MD. Set the recorder to the first track to be labelled.
 
+**--ignore-gooey**: Optionally, you can run the software directly in console without the GUI.
+
 ### Recording a MiniDisc
 
 1. Create a playlist you want to record.
@@ -47,18 +48,19 @@ You can build it yourself or get a preassembled one from me directly.
 
 ## Limitations
 
-Limitations inherent to the MD format:
+Limitations of the MD format:
 
 - up to 254 tracks per disk
 - up to ~200 characters per track
 - up to ~1700 total characters per disc
 - limited character set (ASCII charaters excluding `[ \ ] ^ { | } ~`)
 
-gmdrec will fail if track duration is too short to finish labelling in time. It takes about 30-40s to label a track. If you have a disc with many short tracks, consider first recording it and then using **label_mode** which pauses each track for labelling.
+gmdrec will fail if track duration is too short to finish labelling in time. It takes about 30 seconds to label a track. If you have a disc with many short tracks, consider first recording it and then using **label_mode** which pauses each track for labelling.
 
 ## Contributions welcome
 
 Merge requests providing new functionality or support for additional devices are welcome. 
+
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/fijam)
 
