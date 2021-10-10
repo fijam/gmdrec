@@ -21,11 +21,14 @@ gmdrec uses an API provided by the beefweb plugin to remotely control a music pl
 ### Interface circuit
 
 The circuit comprises a USB-I2C bridge and a I2C digital potentiometer as well as a few passive components. 
+![gmdrec-ic](https://user-images.githubusercontent.com/75824/136713061-f98c489c-dde2-4416-aed6-ce331f19de86.jpg)
 
 The schematics and PCB files are provided in the hardware directory. 
 You can get a preassembled one from me directly.
 
 ### Software
+![gmdrec](https://user-images.githubusercontent.com/75824/136713075-85c55766-86a4-4c6d-afb2-2990d1e35a35.PNG)![gmdrec2](https://user-images.githubusercontent.com/75824/136713079-78d74938-0920-47cb-8bc7-be083389eeda.PNG)
+
 
 **label**: You can specify how the tracks should be formatted. The default is `%artist% - %title%` but you can use any combination of fields from [here](https://wiki.hydrogenaud.io/index.php?title=Foobar2000:Title_Formatting_Reference#Remapped_metadata_fields).
 
