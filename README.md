@@ -46,6 +46,10 @@ The schematics and PCB files are provided in the hardware directory. You can get
 3. Connect the interface circuit to USB and to the remote connector on the MD recorder.
 4. Start gmdrec.
 
+## Linux
+
+gmdrec works on GNU/Linux but requires some additional setup. Instructions are [on a separate wiki page.](https://github.com/fijam/gmdrec/wiki/Linux-setup)
+
 ## Limitations
 
 Limitations of the MD format:
