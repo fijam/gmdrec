@@ -6,6 +6,7 @@ Compatible models include: R70, R90, R91, R700, R701, R900
 Support needs to be added: R910, R909, G755, G750, R55, R37
 
 ## Demo
+[![title-card](https://user-images.githubusercontent.com/75824/136713970-b0210516-68b6-4405-a2c9-558976e5be58.png)](https://www.youtube.com/watch?v=6wfP5BtrBSM)
 
 ## How it works
 
@@ -22,10 +23,10 @@ gmdrec uses an API provided by the beefweb plugin to remotely control a music pl
 
 The circuit comprises a USB-I2C bridge and a I2C digital potentiometer as well as a few passive components. 
 
-The schematics and PCB files are provided in the hardware directory. 
-You can get a preassembled one from me directly.
+The schematics and PCB files are provided in the hardware directory. You can get a preassembled one from me directly.
 
 ### Software
+![gmdrec3](https://user-images.githubusercontent.com/75824/136714044-d9e87af3-f425-4db2-bfe5-fc3f3e0714dd.png)
 
 **label**: You can specify how the tracks should be formatted. The default is `%artist% - %title%` but you can use any combination of fields from [here](https://wiki.hydrogenaud.io/index.php?title=Foobar2000:Title_Formatting_Reference#Remapped_metadata_fields).
 
