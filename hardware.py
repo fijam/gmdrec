@@ -45,12 +45,27 @@ def find_distance(letter):
     return dict_key, dist_dict[dict_key]
 
 
+def letter_replace(letter):
+    if letter in ['[', '{']:
+        replacement = '('
+    elif letter in [']', '}']:
+        replacement = ')'
+    elif letter == '|':
+        replacement = 'I'
+    elif letter == '\\':
+        replacement = '/'
+    elif letter not in set_complete:
+        replacement = '?'
+    else:
+        replacement = letter
+    return replacement
+
+
 def input_string(string_ascii):
     track_letterlist = list(string_ascii)
     current_set = set_initial
     for letter in track_letterlist:
-        if letter not in set_complete:
-            letter = '?'
+        letter = letter_replace(letter)
         wanted_set, times_to_press = find_distance(letter)
         enter_correct_set(wanted_set, current_set)
         # use the sign on the modulo result to see if we are going left or right
