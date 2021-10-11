@@ -38,8 +38,7 @@ def request_playlist_content(playlist_id, item_count, args):
 
     for i in range(item_count):
         ascii_track_name = asciify(response.json()['playlistItems']['items'][i]['columns'][0], args)
-        if ascii_track_name.casefold != 'silence - silence':
-            print(ascii_track_name)
+        print(ascii_track_name)
         t_list.append(ascii_track_name)
         total_time += int(response.json()['playlistItems']['items'][i]['columns'][1])
     print(f'Total playlist duration: {datetime.timedelta(seconds=total_time)}')
