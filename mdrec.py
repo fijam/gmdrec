@@ -2,9 +2,11 @@
 import argparse
 import functools
 import signal
+import sys
+import time
 
-from hardware import *
 from webapi import *
+from settings import PRESS, OFFSET
 
 try:
     from gooey import Gooey
@@ -22,6 +24,8 @@ def parse_arguments():
     #                     help='Configuration file')
     parser.add_argument('label', default='%artist% - %title%',
                         help='Track format (e.g. %track number% - %title%)')
+    parser.add_argument('recorder', choices=['R70/90/91', 'R70/90/91 JPN', 'R700/701/900'],
+                        help='Sony portable model')
     parser.add_argument('--disc-title', dest='disc_title', action='store',
                         help='Album title')
     parser.add_argument('--language-hint', dest='lang_code',
@@ -35,6 +39,9 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
+    import settings
+    settings.recorder = args.recorder
+    from hardware import push_button, enter_labelling, input_string, cleanup_exit
 
     try:
         check_connection()

@@ -3,6 +3,18 @@ import os
 import sys
 import time
 
+from settings import PRESS, HOLD, wipers, recorder
+
+if recorder == 'R70/90/91':
+    from definitions.r90 import change_set_moves, set_initial, set_uppercase, \
+        set_lowercase, set_numbers, set_complete, entrypoints
+if recorder == 'R70/90/91 JPN':
+    from definitions.r90_jpn import change_set_moves, set_initial, set_uppercase, \
+        set_lowercase, set_numbers, set_complete, entrypoints
+if recorder == 'R700/701/900':
+    from definitions.r900 import change_set_moves, set_initial, set_uppercase, \
+        set_lowercase, set_numbers, set_complete, entrypoints
+
 # help Blinka find our microcontroller
 os.environ["BLINKA_MCP2221"] = "1"
 
@@ -12,7 +24,6 @@ try:
 except RuntimeError:
     print("Titler not conneted to USB")
     sys.exit()
-from settings import *
 
 
 def return_current_set(letter, current_set):
@@ -113,6 +124,5 @@ def enter_labelling():
     push_button('Stop', PRESS, 2)
 
 
-# initialize hardware as soon as possible
 ad5245 = hardware_setup()
 shutdown_pot(ad5245)
