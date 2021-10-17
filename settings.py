@@ -11,6 +11,6 @@ PRESS = settings['PRESS']
 HOLD = settings['HOLD']
 OFFSET = settings['OFFSET']
 
-recorder = settings['recorder']
+recorder = ''
 server_url = settings['server_url']
 wipers = settings['calibration']
