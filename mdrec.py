@@ -24,7 +24,7 @@ def parse_arguments():
     #                     help='Configuration file')
     parser.add_argument('label', default='%artist% - %title%',
                         help='Track format (e.g. %track number% - %title%)')
-    parser.add_argument('recorder', choices=['R70/90/91', 'R70/90/91 JPN', 'R700/701/900'],
+    parser.add_argument('recorder', default='R70/90/91', choices=['R70/90/91', 'R70/90/91 JPN', 'R700/701/900'],
                         help='Sony portable model')
     parser.add_argument('--disc-title', dest='disc_title', action='store',
                         help='Album title')
