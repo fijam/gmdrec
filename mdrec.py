@@ -20,8 +20,6 @@ print = functools.partial(print, flush=True)
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    # parser.add_argument('conf', default='settings.conf',
-    #                     help='Configuration file')
     parser.add_argument('label', default='%artist% - %title%',
                         help='Track format (e.g. %track number% - %title%)')
     parser.add_argument('recorder', default='R70/90/91', choices=['R70/90/91', 'R70/90/91 JPN', 'R700/701/900'],
