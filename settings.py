@@ -1,21 +1,16 @@
-# Settings. Tread lightly.
-# this goes into yaml
-OFFSET = 0.01  # in seconds
-PRESS = 0.03
-HOLD = 2.1
+# User settings
+import yaml
 
-server_url = 'http://127.0.0.1:8880'
+try:
+    with open('settings.conf') as config_file:
+        settings = yaml.safe_load(config_file)
+except (FileNotFoundError, IOError):
+    print('settings.conf file not found')
 
-wipers = {
-    'Play': 254,  # 200
-    'Left': 250,  # 1000
-    'Right': 237,  # 3650
-    'Pause': 229,  # 5160
-    'Stop': 218,  # 7100
-    'TMark': 193,  # 11900
-    'Playmode': 180,  # 14300
-    'Display': 166,  # 16700
-    'Record': 152  # 19500
-}
+PRESS = settings['PRESS']
+HOLD = settings['HOLD']
+OFFSET = settings['OFFSET']
 
-recorder = ''
+recorder = settings['recorder']
+server_url = settings['server_url']
+wipers = settings['calibration']
