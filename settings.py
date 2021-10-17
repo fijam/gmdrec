@@ -13,6 +13,7 @@ wipers = {
     'Pause': 229,  # 5160
     'Stop': 218,  # 7100
     'TMark': 193,  # 11900
+    'Playmode': 180,  # 14300
     'Display': 166,  # 16700
     'Record': 152  # 19500
 }
