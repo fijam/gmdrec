@@ -47,7 +47,6 @@ def main():
         if have_gooey:
             print('Progress: -1/1')
         if not args.label_mode:
-            # manual claims you need to hold Pause first, we don't
             enter_rec_stby()
             time.sleep(8)
         print('The following tracks will be labelled:')
