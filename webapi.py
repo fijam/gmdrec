@@ -5,7 +5,7 @@ import requests
 from requests.exceptions import Timeout
 from unihandecode import Unihandecoder
 
-from settings import *
+from settings import server_url
 
 
 def asciify(script, args):
