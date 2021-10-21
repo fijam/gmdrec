@@ -39,7 +39,7 @@ def main():
     args = parse_arguments()
     import settings
     settings.recorder = args.recorder
-    from hardware import push_button, enter_labelling, input_string, cleanup_exit
+    from hardware import push_button, enter_labelling, input_string, cleanup_exit, enter_rec_stby
 
     try:
         check_connection()
@@ -48,8 +48,8 @@ def main():
             print('Progress: -1/1')
         if not args.label_mode:
             # manual claims you need to hold Pause first, we don't
-            push_button('Record', PRESS, 1)  # enter REC Standby
-            time.sleep(7)
+            enter_rec_stby()
+            time.sleep(8)
         print('The following tracks will be labelled:')
         (playlist_ID, track_no) = request_playlist_info()
         (tracklist, tracklist_time) = request_playlist_content(playlist_ID, track_no, args)
@@ -99,13 +99,13 @@ def main():
         print('Waiting for TOC to save...')
         if have_gooey:
             print('Progress: -1/1')
-        time.sleep(7)
+        time.sleep(8)
         if args.disc_title is not None:
             print('Labelling album title...')
             enter_labelling()
             input_string(args.disc_title)
             push_button('Stop', PRESS, 1)
-            time.sleep(7)
+            time.sleep(8)
 
     finally:
         # shut down the digital pot and quit

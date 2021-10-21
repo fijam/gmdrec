@@ -117,6 +117,14 @@ def cleanup_exit():
     sys.exit()
 
 
+def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
+    write_to_pot(wipers['Pause'], ad5245)
+    time.sleep(HOLD)
+    write_to_pot(wipers['Record'], ad5245)
+    time.sleep(PRESS)
+    shutdown_pot(ad5245)
+
+
 def enter_labelling():
     time.sleep(0.1)
     push_button('Display', HOLD, 1)
