@@ -5,5 +5,5 @@ Id,Designator,Package,Quantity,Designation,Supplier and ref
 4,C3,C_0805_2012Metric,1,0.33uF,
 5,R,R_1206_3216Metric,2,3.3k,
 6,U1,SOIC-14_3.9x8.7mm_P1.27mm,1,MCP2221AxSL,Microchip MCP2221(A)-I/SL
-7,U2,SOT-23-8_Handsoldering,1,AD5245,Analog Devices AD5245BRJZ50
+7,U2,SOT-23-8_Handsoldering,1,AD5245,Analog Devices AD5245BRJZ50 alternative: ONSEMI CAT5171TBI-50GT3
 8,case,-,1,G1911C or MC001529,Gainta or MULTICOMP PRO
