@@ -101,7 +101,7 @@ def main():
         print('Waiting for TOC to save...')
         if have_gooey:
             print('Progress: -1/1')
-        time.sleep(8)
+        time.sleep(12)
         if args.disc_title is not None:
             print('Labelling album title...')
             enter_labelling()
