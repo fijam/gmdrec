@@ -28,10 +28,10 @@ def parse_arguments():
                         help='Album title')
     parser.add_argument('--language-hint', dest='lang_code',
                         help='Transliteration hint (e.g. JA)')
+    parser.add_argument('--only_label', default='OFF', dest='label_mode', choices=['OFF', 'ON', 'ERASE'],
+                        help='Label a recorded disc')
     parser.add_argument('--no-tmarks', dest='no_tmarks', action='store_true',
-                        help='Add 2s of silence instead of TMarks between tracks')
-    parser.add_argument('--only_label', dest='label_mode', action='store_true',
-                        help='Label a disc that is already recorded')
+                    help='Add 2s of silence instead of TMarks between tracks')
     return parser.parse_args()
 
 
@@ -46,7 +46,7 @@ def main():
         print('Wait for REC Standby...')
         if have_gooey:
             print('Progress: -1/1')
-        if not args.label_mode:
+        if args.label_mode == 'OFF':
             enter_rec_stby()
             time.sleep(8)
         print('The following tracks will be labelled:')
@@ -54,7 +54,7 @@ def main():
         (tracklist, tracklist_time) = request_playlist_content(playlist_ID, track_no, args)
 
         push_button('Pause', PRESS, 1)  # start recording
-        if not args.label_mode:
+        if args.label_mode == 'OFF':
             set_mode_play(playlist_ID)  # start playlist on first item
 
         for track_number, track in enumerate(tracklist):
@@ -62,18 +62,21 @@ def main():
                 print(f'Recording: {tracklist[track_number]}')
                 print(f'Progress: {track_number+1}/{len(tracklist)}')
 
-                if args.label_mode:
+                if args.label_mode in ['ON', 'ERASE']:
                     push_button('Play', PRESS, 1)
                     time.sleep(0.1)
                     push_button('Pause', PRESS, 1)
+                    time.sleep(0.1)
                     enter_labelling()
+                    if args.label_mode == 'ERASE':
+                        push_button('Playmode', PRESS, 128)
                     input_string(tracklist[track_number])
                     if track_number + 1 != len(tracklist):
                         push_button('Right', PRESS, 1)
                     else:
                         push_button('Stop', PRESS, 1)
 
-                if not args.label_mode:
+                if args.label_mode == 'OFF':
                     enter_labelling()
                     input_string(tracklist[track_number])
                     track_remaining = request_track_time()
