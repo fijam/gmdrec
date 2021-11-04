@@ -7,6 +7,14 @@ import time
 
 from webapi import *
 from settings import PRESS, OFFSET
+from digipot import *
+
+try:
+    ad5245 = hardware_setup()
+except NameError:
+    print("Initialization skipped")
+else:
+    shutdown_pot(ad5245)
 
 try:
     from gooey import Gooey
@@ -31,7 +39,7 @@ def parse_arguments():
     parser.add_argument('--only_label', default='OFF', dest='label_mode', choices=['OFF', 'ON', 'ERASE'],
                         help='Label a recorded disc')
     parser.add_argument('--no-tmarks', dest='no_tmarks', action='store_true',
-                    help='Add 2s of silence instead of TMarks between tracks')
+                        help='Add 2s of silence instead of TMarks between tracks')
     return parser.parse_args()
 
 

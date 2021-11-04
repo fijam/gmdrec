@@ -1,8 +1,8 @@
 # Finding out how many times to push a button and how.
-import os
 import sys
 import time
 
+from digipot import *
 from settings import PRESS, HOLD, wipers, recorder
 
 if recorder == 'R70/90/91':
@@ -14,16 +14,6 @@ if recorder == 'R70/90/91 JPN':
 if recorder == 'R700/701/900':
     from definitions.r900 import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
-
-# help Blinka find our microcontroller
-os.environ["BLINKA_MCP2221"] = "1"
-
-try:
-    import board
-    import busio
-except RuntimeError:
-    print("Titler not conneted to USB")
-    sys.exit()
 
 
 def return_current_set(letter, current_set):
@@ -84,23 +74,6 @@ def input_string(string_ascii):
         push_button('Stop', PRESS, 1)  # advance to next letter
         current_set = return_current_set(letter, current_set)
     push_button('Stop', HOLD, 1)  # finish entry
-
-
-def hardware_setup():
-    # from adafruit_blinka.microcontroller.mcp2221 import mcp2221
-    # mcp2221.mcp2221.gp_set_mode(3, 0b001)  # turn LED_I2C on
-    from adafruit_bus_device.i2c_device import I2CDevice
-    i2c = busio.I2C(board.SCL, board.SDA)
-    pot = I2CDevice(i2c, 0x2C)
-    return pot
-
-
-def write_to_pot(value, pot):
-    pot.write(bytes([0x00 & 0xff, value & 0xff]))
-
-
-def shutdown_pot(pot):
-    pot.write(bytes([0x20 & 0xff, 0 & 0xff]))
 
 
 def push_button(button, timing, times):
