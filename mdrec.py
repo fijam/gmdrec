@@ -113,6 +113,8 @@ def main():
         if args.disc_title is not None:
             print('Labelling album title...')
             enter_labelling()
+            if args.label_mode == 'ERASE':
+                push_button('Playmode', PRESS, 128)
             input_string(args.disc_title)
             push_button('Stop', PRESS, 1)
             time.sleep(8)
