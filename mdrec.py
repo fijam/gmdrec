@@ -58,12 +58,11 @@ def main():
             enter_rec_stby()
             time.sleep(8)
         print('The following tracks will be labelled:')
-        (playlist_ID, track_no) = request_playlist_info()
-        (tracklist, tracklist_time) = request_playlist_content(playlist_ID, track_no, args)
+        tracklist = request_playlist_content(args)
 
         push_button('Pause', PRESS, 1)  # start recording
         if args.label_mode == 'OFF':
-            set_mode_play(playlist_ID)  # start playlist on first item
+            set_mode_play()  # start playlist on first item
 
         for track_number, track in enumerate(tracklist):
             try:

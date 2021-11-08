@@ -22,17 +22,13 @@ def check_connection():
         raise()
 
 
-def request_playlist_info():
-    response = requests.get(server_url + '/api/playlists')
-    # return playlist ID and number of tracks
-    return response.json()['playlists'][0]['id'], response.json()['playlists'][0]['itemCount']
-
-
-def request_playlist_content(playlist_id, item_count, args):
+def request_playlist_content(args):
     t_list = []
     total_time = 0
-    payload = {'playlists': 'true', 'playlistItems': 'true',
-               'plref': playlist_id, 'plrange': '0:' + str(item_count),
+    response_playlist = requests.get(server_url + '/api/playlists')
+    item_count = response_playlist.json()['playlists'][0]['itemCount']
+    payload = {'playlists': 'false', 'playlistItems': 'true',
+               'plref': 'p1', 'plrange': '0:' + str(item_count),
                'plcolumns': args.label+', %length_seconds%'}
     response = requests.get(server_url+'/api/query', params=payload)
 
@@ -47,7 +43,7 @@ def request_playlist_content(playlist_id, item_count, args):
     if item_count > 254:
         print('Warning: cannot record more than 254 tracks!')
     # return a list of tracks to label and total time
-    return t_list, total_time
+    return t_list
 
 
 def request_track_time():
@@ -58,9 +54,9 @@ def request_track_time():
     return duration - position
 
 
-def set_mode_play(playlist_id):
+def set_mode_play():
     requests.post(server_url + '/api/player', params={'isMuted': 'false', 'playbackMode': '0'})  # unmute, no shuffle
-    requests.post(server_url + '/api/player/play/' + playlist_id+'/0')  # start from the top
+    requests.post(server_url + '/api/player/play/p1/0')  # start from the top
 
 
 def set_player(command):
