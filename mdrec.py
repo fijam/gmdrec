@@ -5,7 +5,6 @@ import signal
 import sys
 import time
 
-from webapi import *
 from settings import PRESS, OFFSET
 from digipot import *
 
@@ -35,7 +34,9 @@ def parse_arguments():
     parser.add_argument('--disc-title', dest='disc_title', action='store',
                         help='Album title')
     parser.add_argument('--language-hint', dest='lang_code',
-                        help='Transliteration hint (e.g. JA)')
+                        help='Transliteration hint (e.g. ja)')
+    parser.add_argument('--spotify', dest='spotify',
+                        help='playlist URI')
     parser.add_argument('--only_label', default='OFF', dest='label_mode', choices=['OFF', 'ON', 'ERASE'],
                         help='Label a recorded disc')
     parser.add_argument('--no-tmarks', dest='no_tmarks', action='store_true',
@@ -48,6 +49,11 @@ def main():
     import settings
     settings.recorder = args.recorder
     from hardware import push_button, enter_labelling, input_string, cleanup_exit, enter_rec_stby
+    if args.spotify is not None:
+        settings.URI = args.spotify
+        from spot import check_connection, request_playlist_content, request_track_time, set_player
+    else:
+        from webapi import check_connection, request_playlist_content, request_track_time, set_player
 
     try:
         check_connection()
@@ -131,7 +137,7 @@ if __name__ == '__main__':
                      progress_expr="current / total * 100",
                      hide_progress_msg=True,
                      optional_cols=2,
-                     default_size=(460, 580),
+                     default_size=(460, 620),
                      show_success_modal=False,
                      shutdown_signal=signal.CTRL_C_EVENT)(main)
     main()
