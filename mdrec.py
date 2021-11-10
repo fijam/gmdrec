@@ -62,7 +62,7 @@ def main():
 
         push_button('Pause', PRESS, 1)  # start recording
         if args.label_mode == 'OFF':
-            set_mode_play()  # start playlist on first item
+            set_player('mode_play')  # start playlist on first item
 
         for track_number, track in enumerate(tracklist):
             try:

@@ -54,10 +54,9 @@ def request_track_time():
     return duration - position
 
 
-def set_mode_play():
-    requests.post(server_url + '/api/player', params={'isMuted': 'false', 'playbackMode': '0'})  # unmute, no shuffle
-    requests.post(server_url + '/api/player/play/p1/0')  # start from the top
-
-
 def set_player(command):
+    if command == 'mode_play':
+        # unmute, no shuffle
+        requests.post(server_url + '/api/player', params={'isMuted': 'false', 'playbackMode': '0'})
+        requests.post(server_url + '/api/player/play/p1/0')  # start from the top
     requests.post(server_url + '/api/player/' + command)  # play, pause, stop
