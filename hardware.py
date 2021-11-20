@@ -24,6 +24,8 @@ def return_current_set(letter, current_set):
         return 'lowercase'
     if letter in set_numbers:
         return 'numbers'
+    if recorder == 'R70/90/91 JPN' and letter != ' ':
+        return 'katakana'
     return current_set
 
 
