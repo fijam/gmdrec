@@ -28,7 +28,9 @@ The schematics and PCB files are provided in the hardware directory. You can get
 ![gmdrec-v0 3](https://user-images.githubusercontent.com/75824/140431457-25fa2b6e-e49f-4961-b3a1-644eece69dab.png)
 
 
-**label**: You can specify how the tracks should be formatted. You can use any combination of fields from [here](https://wiki.hydrogenaud.io/index.php?title=Foobar2000:Title_Formatting_Reference#Remapped_metadata_fields).
+**label**: Specify how the tracks should be formatted. You can use any combination of fields from [here](https://wiki.hydrogenaud.io/index.php?title=Foobar2000:Title_Formatting_Reference#Remapped_metadata_fields).
+
+**recorder**: Select your recorder model. Note that some devices may [behave differently depending on firmware](https://github.com/fijam/gmdrec/wiki/Troubleshooting#firmware-revisions).
 
 **disc_title**: Optionally, the disc can be labelled with an album title.
 
