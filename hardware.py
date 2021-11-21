@@ -5,15 +5,13 @@ import time
 from digipot import *
 from settings import PRESS, HOLD, wipers, recorder
 
-if recorder == 'R70/90/91':
+if recorder == 'R55 through R900':
     from definitions.r90 import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
-if recorder == 'R70/90/91 JPN':
+if recorder in ['R55 through R900 JPN', 'R55 through R900 JPN early FW']:
     from definitions.r90_jpn import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
-if recorder == 'R700/701/900':
-    from definitions.r900 import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, entrypoints
+
 
 
 def return_current_set(letter, current_set):
@@ -24,7 +22,7 @@ def return_current_set(letter, current_set):
         return 'lowercase'
     if letter in set_numbers:
         return 'numbers'
-    if recorder == 'R70/90/91 JPN' and letter != ' ':
+    if recorder == 'R55 through R900 JPN early FW' and letter != ' ':
         return 'katakana'
     return current_set
 
