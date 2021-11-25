@@ -1,9 +1,11 @@
 ## Overview
 gmdrec records and labels tracks on selected Sony portable MD recorders.
 
-Compatible models include: R70, R90, R91, R700, R701, R900, N707
+Compatible models include: R70, R90, R91, R700, R701, R900, N707, R909, R910, N1
 
-Support needs to be added: R910, R909, G755, G750, R55, R37
+**Note:** R909, R910 and N1 **require** [100k Ohm pulldown on the LCD data line.](https://github.com/fijam/gmdrec/wiki/Remote-connectors) 
+
+Need to be tested: G755, G750, R55, R37
 
 ## Demo
 [![title-card](https://user-images.githubusercontent.com/75824/136713970-b0210516-68b6-4405-a2c9-558976e5be58.png)](https://www.youtube.com/watch?v=6wfP5BtrBSM)
@@ -38,7 +40,7 @@ The schematics and PCB files are provided in the hardware directory. You can get
 
 **label_mode**: Optionally, you can use gmdrec to label a disc which has been already recorded. Make sure the number of items on the playlist equals the number of tracks on the MD and set the recorder to the first track to be labelled. If you select `ERASE`, old track names will be deleted before labelling.
 
-**no_tmarks**: By default, gmdrec will insert a Track Mark at the end of every track. If there is a period of silence between the tracks the recorder itself will enter another, resulting in duplicates. With this option 2 seconds of silence are added between each track and making track marks is left to the recorder.
+**no_tmarks**: By default, gmdrec will insert a Track Mark at the end of every track. If there is a period of silence between the tracks the recorder itself will enter another, resulting in duplicates. This option adds 2 seconds of silence between each track and making track marks is left to the recorder. *Strongly recommended for R909/R910/N1.*
 
 **--ignore-gooey**: Optionally, you can run the software directly in console without the GUI.
 
