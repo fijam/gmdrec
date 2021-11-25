@@ -32,7 +32,8 @@ def parse_arguments():
     parser.add_argument('recorder', default='R55 through R900', choices=['R55 through R900',
                                                                          'R55 through R900 JPN',
                                                                          'R55 through R900 JPN early FW',
-                                                                         'R909/R910/N1'],
+                                                                         'R909/R910/N1',
+                                                                         'R909/R910/N1 JPN'],
                         help='Sony portable model')
     parser.add_argument('--disc-title', dest='disc_title', action='store',
                         help='Album title')

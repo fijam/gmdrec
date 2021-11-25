@@ -14,6 +14,9 @@ if recorder in ['R55 through R900 JPN', 'R55 through R900 JPN early FW']:
 if recorder == 'R909/R910/N1':
     from definitions.r909 import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
+if recorder == 'R909/R910/N1 JPN':
+    from definitions.r909_jpn import change_set_moves, set_initial, set_uppercase, \
+        set_lowercase, set_numbers, set_complete, entrypoints
 
 
 def return_current_set(letter, current_set):
