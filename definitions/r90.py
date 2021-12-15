@@ -1,7 +1,7 @@
 import string
 from itertools import chain
 
-# MZ-R70/R90/R91:
+# MZ-R37/R70/R90/R91:
 change_set_moves = {'uppercase': {'uppercase': 1, 'lowercase': 2, 'numbers': 3},
                     'lowercase': {'uppercase': 3, 'lowercase': 1, 'numbers': 2},
                     'numbers':   {'uppercase': 2, 'lowercase': 3, 'numbers': 1}}

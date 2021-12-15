@@ -5,7 +5,7 @@ import time
 from digipot import *
 from settings import PRESS, HOLD, wipers, recorder
 
-if recorder == 'R55 through R900':
+if recorder in ['R37', 'R55 through R900']:
     from definitions.r90 import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
 if recorder in ['R55 through R900 JPN', 'R55 through R900 JPN early FW']:
@@ -77,7 +77,10 @@ def input_string(string_ascii):
         # use the sign on the modulo result to see if we are going left or right
         push_button((lambda x: (x < 0 and 'Left' or 'Right'))(times_to_press), PRESS, abs(times_to_press))
         push_button('Stop', PRESS, 1)  # advance to next letter
-        current_set = return_current_set(letter, current_set)
+        if recorder == 'R37':
+            current_set = return_current_set(letter, wanted_set)
+        else:
+            current_set = return_current_set(letter, current_set)
     push_button('Stop', HOLD, 1)  # finish entry
 
 
@@ -107,7 +110,10 @@ def enter_labelling():
     time.sleep(0.1)
     push_button('Display', HOLD, 1)
     time.sleep(0.1)
-    push_button('Stop', PRESS, 2)
+    if recorder == 'R37':
+        push_button('Stop', PRESS, 1)
+    else:
+        push_button('Stop', PRESS, 2)
 
 
 ad5245 = hardware_setup()
