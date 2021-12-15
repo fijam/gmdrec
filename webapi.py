@@ -26,9 +26,15 @@ def request_playlist_content(args):
     t_list = []
     total_time = 0
     response_playlist = requests.get(server_url + '/api/playlists')
-    item_count = response_playlist.json()['playlists'][0]['itemCount']
+    playlist_list = response_playlist.json()['playlists']
+    for dictionary in playlist_list:
+        if dictionary['isCurrent']:
+            global playlist_id  # cop-out
+            playlist_id = dictionary['id']
+            item_count = dictionary['itemCount']
+
     payload = {'playlists': 'false', 'playlistItems': 'true',
-               'plref': 'p1', 'plrange': '0:' + str(item_count),
+               'plref': playlist_id, 'plrange': '0:' + str(item_count),
                'plcolumns': args.label+', %length_seconds%'}
     response = requests.get(server_url+'/api/query', params=payload)
 
@@ -58,5 +64,5 @@ def set_player(command):
     if command == 'mode_play':
         # unmute, no shuffle
         requests.post(server_url + '/api/player', params={'isMuted': 'false', 'playbackMode': '0'})
-        requests.post(server_url + '/api/player/play/p1/0')  # start from the top
+        requests.post(server_url + f'/api/player/play/{playlist_id}/0')  # start from the top
     requests.post(server_url + '/api/player/' + command)  # play, pause, stop
