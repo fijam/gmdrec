@@ -29,9 +29,10 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('label', default='%artist% - %title%',
                         help='Track format (e.g. %track number% - %title%)')
-    parser.add_argument('recorder', default='R55 through R900', choices=['R55 through R900',
-                                                                         'R55 through R900 JPN',
-                                                                         'R55 through R900 JPN early FW',
+    parser.add_argument('recorder', default='R70 through N707', choices=['R55/R37',
+                                                                         'R55/R37 JPN',
+                                                                         'R70 through N707',
+                                                                         'R70 through N707 JPN',
                                                                          'R909/R910/N1',
                                                                          'R909/R910/N1 JPN'],
                         help='Sony portable model')

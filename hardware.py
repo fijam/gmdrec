@@ -5,10 +5,10 @@ import time
 from digipot import *
 from settings import PRESS, HOLD, wipers, recorder
 
-if recorder == 'R55 through R900':
+if recorder in ['R70 through N707', 'R55/R37']:
     from definitions.r90 import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
-if recorder in ['R55 through R900 JPN', 'R55 through R900 JPN early FW']:
+if recorder in ['R70 through N707 JPN', 'R55/R37 JPN']:
     from definitions.r90_jpn import change_set_moves, set_initial, set_uppercase, \
         set_lowercase, set_numbers, set_complete, entrypoints
 if recorder == 'R909/R910/N1':
@@ -27,8 +27,6 @@ def return_current_set(letter, current_set):
         return 'lowercase'
     if letter in set_numbers:
         return 'numbers'
-    if recorder == 'R55 through R900 JPN early FW' and letter != ' ':
-        return 'katakana'
     return current_set
 
 
