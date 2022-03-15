@@ -27,6 +27,8 @@ def return_current_set(letter, current_set):
         return 'lowercase'
     if letter in set_numbers:
         return 'numbers'
+    if recorder in ['R55/R37', 'R55/R37 JPN']:  # the problem children
+        return set_initial
     return current_set
 
 
