@@ -12,6 +12,7 @@ set_lowercase = list(string.ascii_lowercase)
 set_numbers = (list(string.digits)
                + ['!', '"', '#', '$', '%', '&', '(', ')', '*', '.', ';',
                   '<', '=', '>', '?', '@', '_', '`', '+', '-'])
+set_katakana = []
 
 complete_recipe = [set_common, set_uppercase, set_common, set_lowercase, set_common, set_numbers]
 set_complete = list(chain.from_iterable(complete_recipe))

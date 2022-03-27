@@ -2,25 +2,34 @@
 import sys
 import time
 
+from unihandecode import Unihandecoder
 from digipot import *
 from settings import PRESS, HOLD, wipers, recorder
 
 if recorder in ['R70 through N707', 'R55/R37']:
     from definitions.r90 import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, entrypoints
+        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
 if recorder in ['R70 through N707 JPN', 'R55/R37 JPN']:
     from definitions.r90_jpn import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, entrypoints
+        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
 if recorder == 'R909/R910/N1':
     from definitions.r909 import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, entrypoints
+        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
 if recorder == 'R909/R910/N1 JPN':
     from definitions.r909_jpn import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, entrypoints
+        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
+
+
+def asciify(script, args):
+    if args.lang_code is None:
+        return Unihandecoder().decode(script)
+    return Unihandecoder(lang=args.lang_code.casefold()).decode(script)
 
 
 def return_current_set(letter, current_set):
     # find out where we ended up, this carries over to the next letter
+    if letter in set_katakana:
+        return 'katakana'
     if letter in set_uppercase:
         return 'uppercase'
     if letter in set_lowercase:
@@ -29,6 +38,7 @@ def return_current_set(letter, current_set):
         return 'numbers'
     if recorder in ['R55/R37', 'R55/R37 JPN']:  # the problem children
         return set_initial
+        # note: this only works because .index on set_common characters returns the positions left of set_initial
     return current_set
 
 
@@ -67,8 +77,12 @@ def letter_replace(letter):
     return replacement
 
 
-def input_string(string_ascii):
-    track_letterlist = list(string_ascii)
+def input_string(trackname, args):
+    track_letterlist = list(trackname)
+    is_letter_valid = list(map(lambda x: x in set_complete, track_letterlist))
+    if not all(is_letter_valid):
+        # need to transliterate
+        track_letterlist = list(asciify(trackname, args))
     current_set = set_initial
     for letter in track_letterlist:
         letter = letter_replace(letter)

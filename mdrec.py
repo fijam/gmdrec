@@ -88,7 +88,7 @@ def main():
                     enter_labelling()
                     if args.label_mode == 'ERASE':
                         push_button('Playmode', PRESS, 128)
-                    input_string(tracklist[track_number])
+                    input_string(tracklist[track_number], args)
                     if track_number + 1 != len(tracklist):
                         push_button('Right', PRESS, 1)
                     else:
@@ -96,7 +96,7 @@ def main():
 
                 if args.label_mode == 'OFF':
                     enter_labelling()
-                    input_string(tracklist[track_number])
+                    input_string(tracklist[track_number], args)
                     track_remaining = request_track_time()
                     print(f'Track labelled. Time to TMark: {track_remaining:0.0f}s')
                     time.sleep(track_remaining - OFFSET)  # adjust OFFSET if TMark is too early or too late
@@ -125,7 +125,7 @@ def main():
             enter_labelling()
             if args.label_mode == 'ERASE':
                 push_button('Playmode', PRESS, 128)
-            input_string(args.disc_title)
+            input_string(args.disc_title, args)
             push_button('Stop', PRESS, 1)
             time.sleep(8)
 

@@ -14,7 +14,10 @@ set_lowercase = list(string.ascii_lowercase)
 set_numbers = (list(string.digits)
                + ['!', '"', '#', '$', '%', '&', '(', ')', '*', '.', ';',
                   '<', '=', '>', '?', '@', '_', '`', '+', '-'])
-set_katakana = ['ア'] * 81  # todo, 81 characters
+set_katakana = ['ア', 'イ', 'ウ', 'エ', 'オ', 'カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト', 'ナ', 'ニ',
+                'ヌ', 'ネ', 'ノ', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ', 'マ', 'ミ', 'ム', 'メ', 'モ', 'ヤ', 'ユ', 'ヨ', 'ラ', 'リ', 'ル', 'レ', 'ロ', 'ワ',
+                'ヲ', 'ン', 'ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ャ', 'ュ', 'ョ', 'ッ', 'ガ', 'ギ', 'グ', 'ゲ', 'ゴ', 'ザ', 'ジ', 'ズ', 'ゼ', 'ゾ', 'ダ',
+                'ヂ', 'ヅ', 'デ', 'ド', 'バ', 'ビ', 'ブ', 'ベ', 'ボ', 'パ', 'ピ', 'プ', 'ペ', 'ポ', 'ヴ']
 
 complete_recipe = [set_common, set_katakana, set_common, set_uppercase, set_common, set_lowercase, set_common, set_numbers]
 set_complete = list(chain.from_iterable(complete_recipe))

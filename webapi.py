@@ -3,15 +3,8 @@ import datetime
 
 import requests
 from requests.exceptions import Timeout
-from unihandecode import Unihandecoder
 
 from settings import server_url
-
-
-def asciify(script, args):
-    if args.lang_code is None:
-        return Unihandecoder().decode(script)
-    return Unihandecoder(lang=args.lang_code.casefold()).decode(script)
 
 
 def check_connection():
@@ -39,9 +32,9 @@ def request_playlist_content(args):
     response = requests.get(server_url+'/api/query', params=payload)
 
     for i in range(item_count):
-        ascii_track_name = asciify(response.json()['playlistItems']['items'][i]['columns'][0], args)
-        print(ascii_track_name)
-        t_list.append(ascii_track_name)
+        track_name = response.json()['playlistItems']['items'][i]['columns'][0]
+        print(track_name)
+        t_list.append(track_name)
         total_time += int(response.json()['playlistItems']['items'][i]['columns'][1])
     print(f'Total playlist duration: {datetime.timedelta(seconds=total_time)}')
     if total_time >= 4800:
