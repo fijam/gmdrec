@@ -6,18 +6,18 @@ from unihandecode import Unihandecoder
 from digipot import *
 from settings import PRESS, HOLD, wipers, recorder
 
-if recorder in ['R70 through N707', 'R55/R37']:
-    from definitions.r90 import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
-if recorder in ['R70 through N707 JPN', 'R55/R37 JPN']:
-    from definitions.r90_jpn import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
+if recorder == 'R55/R37':
+    from definitions.r55 import *
+if recorder == 'R55/R37 JPN':
+    from definitions.r55_jpn import *
+if recorder == 'R70 through N707':
+    from definitions.r90 import *
+if recorder == 'R70 through N707 JPN':
+    from definitions.r90_jpn import *
 if recorder == 'R909/R910/N1':
-    from definitions.r909 import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
+    from definitions.r909 import *
 if recorder == 'R909/R910/N1 JPN':
-    from definitions.r909_jpn import change_set_moves, set_initial, set_uppercase, \
-        set_lowercase, set_numbers, set_complete, set_katakana, entrypoints
+    from definitions.r909_jpn import *
 
 
 def asciify(script, args):
@@ -121,7 +121,7 @@ def enter_labelling():
     time.sleep(0.1)
     push_button('Display', HOLD, 1)
     time.sleep(0.1)
-    push_button('Stop', PRESS, 2)
+    push_button('Stop', PRESS, labelling_entry_stop)
 
 
 ad5245 = hardware_setup()

@@ -2,6 +2,7 @@ import string
 from itertools import chain
 
 # MZ-R909/R910/N1 Japanese firmware:
+labelling_entry_stop = 1
 change_set_moves = {'katakana':  {'katakana': 1, 'uppercase': 2, 'lowercase': 3, 'numbers': 4},
                     'uppercase': {'katakana': 4, 'uppercase': 1, 'lowercase': 2, 'numbers': 3},
                     'lowercase': {'katakana': 3, 'uppercase': 4, 'lowercase': 1, 'numbers': 2},
