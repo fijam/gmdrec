@@ -1,11 +1,13 @@
 ## Overview
 gmdrec records and labels tracks on selected Sony portable MD recorders.
 
-Compatible models include: R70, R90, R91, R700, R701, R900, N707, R909, R910, N1
+Compatible models include: R55, R37, R70, R90, R91, R700, R701, R900, N707, R909, R910, N1, N707
 
 **Note:** R909, R910 and N1 **require** [100k Ohm pulldown on the LCD data line.](https://github.com/fijam/gmdrec/wiki/Remote-connectors) 
 
-Need to be tested: G755, G750, R55, R37
+With the new revision of the titler you just need to solder the jumper next to the 100k Ohm resistor.
+
+Need to be tested: G755, G750
 
 ## Demo
 [![title-card](https://user-images.githubusercontent.com/75824/136713970-b0210516-68b6-4405-a2c9-558976e5be58.png)](https://www.youtube.com/watch?v=6wfP5BtrBSM)
