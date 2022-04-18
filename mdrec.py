@@ -24,6 +24,9 @@ except ImportError:
 # pyinstaller binaries need flushing
 print = functools.partial(print, flush=True)
 
+# pyinstaller needs to be told to use utf-8
+sys.stdout.reconfigure(encoding='utf-8')
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
