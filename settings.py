@@ -7,9 +7,6 @@ try:
 except (FileNotFoundError, IOError):
     print('settings.conf file not found')
 
-PRESS = settings['PRESS']
-HOLD = settings['HOLD']
-
 recorder = ''
 URI = ''
 

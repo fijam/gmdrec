@@ -1,6 +1,8 @@
 import spotipy
 import datetime
+import time
 import sys
+import os
 from spotipy.oauth2 import SpotifyOAuth
 from unihandecode import Unihandecoder
 from settings import URI, client_id, client_secret
@@ -13,7 +15,9 @@ scope = "user-read-playback-state,user-modify-playback-state"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
                                                client_secret=client_secret,
                                                redirect_uri="http://localhost:8080",
-                                               scope=scope))
+                                               scope=scope,
+                                               cache_path=f"{os.environ['LOCALAPPDATA']}\gmdrec.cache"))
+# windows-specific cache location not commited to git
 
 
 def asciify(script, args):
@@ -67,3 +71,9 @@ def set_player(command):
         sp.start_playback()
     if command in ['stop', 'pause']:
         sp.pause_playback()
+
+
+def insert_2s():
+    set_player('pause')
+    time.sleep(2.1)
+    set_player('play')

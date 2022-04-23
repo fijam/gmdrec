@@ -4,7 +4,7 @@ import time
 
 from unihandecode import Unihandecoder
 from hardware import *
-from settings import PRESS, HOLD, wipers, recorder
+from settings import wipers, recorder
 
 if recorder == 'R55/R37':
     from definitions.r55 import *
@@ -124,6 +124,33 @@ def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
     write_to_pot(wipers['Record'], ad5245)
     time.sleep(PRESS)
     shutdown_pot(ad5245)
+
+
+def next_track():
+    push_button('Right', PRESS, 1)
+
+
+def play_and_pause():
+    push_button('Play', PRESS, 1)
+    time.sleep(0.1)
+    push_button('Pause', PRESS, 1)
+    time.sleep(0.1)
+
+
+def pause_unpause():
+    push_button('Pause', PRESS, 1)
+
+
+def write_toc():
+    push_button('Stop', PRESS, 1)
+
+
+def tmark_it():
+    push_button('TMark', PRESS, 1)
+
+
+def erase():
+    push_button('Playmode', PRESS, 128)
 
 
 def enter_labelling():

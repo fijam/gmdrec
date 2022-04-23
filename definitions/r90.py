@@ -2,6 +2,8 @@ import string
 from itertools import chain
 
 # MZ-R70/R90/R91 export firmware:
+HOLD: 2.1
+PRESS: 0.03
 labelling_entry_stop = 2
 change_set_moves = {'uppercase': {'uppercase': 1, 'lowercase': 2, 'numbers': 3},
                     'lowercase': {'uppercase': 3, 'lowercase': 1, 'numbers': 2},

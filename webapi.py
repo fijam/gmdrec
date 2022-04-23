@@ -1,5 +1,6 @@
 # Talking to the music player and sanitizing data.
 import datetime
+import time
 
 import requests
 from requests.exceptions import Timeout
@@ -59,3 +60,9 @@ def set_player(command):
         requests.post(server_url + '/api/player', params={'isMuted': 'false', 'playbackMode': '0'})
         requests.post(server_url + f'/api/player/play/{playlist_id}/0')  # start from the top
     requests.post(server_url + '/api/player/' + command)  # play, pause, stop
+
+
+def insert_2s():
+    set_player('pause')
+    time.sleep(2.1)
+    set_player('play')
