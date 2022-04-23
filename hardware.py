@@ -142,8 +142,9 @@ eeprom = eeprom_setup()
 if not wipers['Play']:
     if eeprom:
         wipers = {'Play': eeprom_val(1), 'Left': eeprom_val(2), 'Right': eeprom_val(3),
-                  'Pause': eeprom_val(4), 'Stop': eeprom_val(5), 'TMark': eeprom_val(7),
-                  'Playmode': eeprom_val(8), 'Display': eeprom_val(9), 'Record': eeprom_val(10)}
+                  'Pause': eeprom_val(4), 'Stop': eeprom_val(5), 'VolUp': eeprom_val(6),
+                  'TMark': eeprom_val(7), 'Playmode': eeprom_val(8), 'Display': eeprom_val(9),
+                  'Record': eeprom_val(10)}
         print(f'calibration data found in eeprom: {wipers}')
     if not eeprom:
         print('Please enter calibration data in settings.conf ! \n')
