@@ -5,7 +5,7 @@ import signal
 import sys
 import time
 
-from settings import PRESS, OFFSET
+from settings import PRESS
 from hardware import *
 
 try:
@@ -102,7 +102,7 @@ def main():
                     input_string(tracklist[track_number], args)
                     track_remaining = request_track_time()
                     print(f'Track labelled. Time to TMark: {track_remaining:0.0f}s')
-                    time.sleep(track_remaining - OFFSET)  # adjust OFFSET if TMark is too early or too late
+                    time.sleep(track_remaining)
                     if track_number+1 != len(tracklist):
                         if args.no_tmarks:
                             set_player('pause')

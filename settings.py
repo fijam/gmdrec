@@ -9,7 +9,6 @@ except (FileNotFoundError, IOError):
 
 PRESS = settings['PRESS']
 HOLD = settings['HOLD']
-OFFSET = settings['OFFSET']
 
 recorder = ''
 URI = ''
