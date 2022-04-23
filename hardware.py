@@ -122,10 +122,12 @@ def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
 
 
 def enter_labelling():
+    # 100 ms delays here are *required*
     time.sleep(0.1)
     push_button('Display', HOLD, 1)
     time.sleep(0.1)
     push_button('Stop', PRESS, labelling_entry_stop)
+    time.sleep(0.1)
 
 
 ad5245 = hardware_setup()
