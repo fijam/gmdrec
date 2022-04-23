@@ -2,8 +2,8 @@ import string
 from itertools import chain
 
 # MZ-R50/R37 Japanese firmware:
-HOLD: 2.3
-PRESS: 0.035
+HOLD = 2.3
+PRESS = 0.035
 labelling_entry_stop = 1
 change_set_moves = {'katakana':  {'katakana': 1, 'uppercase': 2, 'lowercase': 3, 'numbers': 4},
                     'uppercase': {'katakana': 4, 'uppercase': 1, 'lowercase': 2, 'numbers': 3},
