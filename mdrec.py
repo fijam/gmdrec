@@ -6,7 +6,7 @@ import sys
 import time
 
 from settings import PRESS, OFFSET
-from digipot import *
+from hardware import *
 
 try:
     ad5245 = hardware_setup()

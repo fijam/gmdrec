@@ -3,7 +3,7 @@ import sys
 import time
 
 from unihandecode import Unihandecoder
-from digipot import *
+from hardware import *
 from settings import PRESS, HOLD, wipers, recorder
 
 if recorder == 'R55/R37':
