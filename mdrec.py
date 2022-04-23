@@ -58,7 +58,7 @@ def main():
     from logic import enter_labelling, input_string, cleanup_exit, enter_rec_stby, play_and_pause, pause_unpause, erase, write_toc, tmark_it, next_track
     if args.spotify is not None:
         settings.URI = args.spotify
-        from spot import check_connection, request_playlist_content, request_track_time, set_player
+        from spot import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
     else:
         from webapi import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
 
