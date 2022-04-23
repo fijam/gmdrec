@@ -66,19 +66,24 @@ def find_distance(letter):
 
 
 def letter_replace(letter):
-    if letter in ['[', '{']:
-        replacement = '('
-    elif letter in [']', '}']:
-        replacement = ')'
-    elif letter == '|':
-        replacement = 'I'
-    elif letter == '\\':
-        replacement = '/'
+    if letter in ['[', '{', '「', '『']:
+        return '('
+    elif letter in [']', '}', '」', '』']:
+        return ')'
+    elif letter in ['|']:
+        return 'I'
+    elif letter in ['\\']:
+        return '/'
+    elif letter in ['。']:
+        return '.'
+    elif letter in ['・']:
+        return '-'
+    elif letter in ['、']:
+        return ','
     elif letter not in set_complete:
-        replacement = '?'
+        return '?'
     else:
-        replacement = letter
-    return replacement
+        return letter
 
 
 def input_string(trackname, args):
