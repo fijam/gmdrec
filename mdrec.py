@@ -56,7 +56,7 @@ def main():
     args = parse_arguments()
     import settings
     settings.recorder = args.recorder
-    from hardware import push_button, enter_labelling, input_string, cleanup_exit, enter_rec_stby
+    from logic import push_button, enter_labelling, input_string, cleanup_exit, enter_rec_stby
     if args.spotify is not None:
         settings.URI = args.spotify
         from spot import check_connection, request_playlist_content, request_track_time, set_player
