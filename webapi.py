@@ -34,7 +34,6 @@ def request_playlist_content(args):
 
     for i in range(item_count):
         track_name = response.json()['playlistItems']['items'][i]['columns'][0]
-        print(track_name)
         t_list.append(track_name)
         total_time += int(response.json()['playlistItems']['items'][i]['columns'][1])
     print(f'Total playlist duration: {datetime.timedelta(seconds=total_time)}')
