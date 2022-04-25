@@ -56,7 +56,7 @@ def main():
     args = parse_arguments()
     import settings
     settings.recorder = args.recorder
-    from logic import enter_labelling, input_string, cleanup_exit, enter_rec_stby, play_and_pause, pause_unpause, erase, write_toc, tmark_it, next_track
+    from logic import enter_labelling, input_string, cleanup_exit, enter_rec_stby, pause_unpause, erase, write_toc, tmark_it, next_track
     if args.spotify is not None:
         settings.URI = args.spotify
         from spot import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
@@ -95,7 +95,9 @@ def main():
             for track_number, track in enumerate(tracklist):
                 print(f'Labelling: {tracklist[track_number]}')
                 print(f'Progress: {track_number + 1}/{len(tracklist)}')
-                play_and_pause()
+                pause_unpause()
+                time.sleep(0.1)
+                pause_unpause()
                 enter_labelling()
                 if args.label_mode == 'ERASE': erase()
                 input_string(tracklist[track_number], args)

@@ -131,13 +131,6 @@ def next_track():
     push_button('Right', PRESS, 1)
 
 
-def play_and_pause():
-    push_button('Play', PRESS, 1)
-    time.sleep(0.1)
-    push_button('Pause', PRESS, 1)
-    time.sleep(0.1)
-
-
 def pause_unpause():
     push_button('Pause', PRESS, 1)
 
