@@ -73,9 +73,7 @@ def sanitize_track(trackname, lang_code=None):
 
 
 def sanitize_tracklist(tracklist, lang_code=None):
-    sanitized_tracklist = []
-    for trackname in tracklist:
-        sanitized_tracklist.append(sanitize_track(trackname, lang_code))
+    sanitized_tracklist = [sanitize_track(track, lang_code) for track in tracklist]
     return sanitized_tracklist
 
 
