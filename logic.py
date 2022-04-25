@@ -24,12 +24,6 @@ def eeprom_val(i):
     return int.from_bytes(eeprom[i], "big")
 
 
-def asciify(script, args):
-    if args.lang_code is None:
-        return Unihandecoder().decode(script)
-    return Unihandecoder(lang=args.lang_code.casefold()).decode(script)
-
-
 def return_current_set(letter, current_set):
     # find out where we ended up, this carries over to the next letter
     if letter in set_katakana:
@@ -65,36 +59,31 @@ def find_distance(letter):
     return dict_key, dist_dict[dict_key]
 
 
-def letter_replace(letter):
-    if letter in ['[', '{', '「', '『']:
-        return '('
-    elif letter in [']', '}', '」', '』']:
-        return ')'
-    elif letter in ['|']:
-        return 'I'
-    elif letter in ['\\']:
-        return '/'
-    elif letter in ['。']:
-        return '.'
-    elif letter in ['・']:
-        return '-'
-    elif letter in ['、']:
-        return ','
-    elif letter not in set_complete:
-        return '?'
-    else:
-        return letter
+def letter_replace(trackname):
+    change_from = "[{「『]}」』|。・、"
+    change_to = "(((())))I.-,"
+    return trackname.translate(trackname.maketrans(change_from, change_to))
 
 
-def input_string(trackname, args):
+def sanitize_track(trackname, lang_code=None):
+    trackname = letter_replace(trackname)
+    if set(trackname) <= set(set_complete): return trackname
+    if lang_code: return Unihandecoder(lang=lang_code.casefold()).decode(trackname)
+    return Unihandecoder().decode(trackname)
+
+
+def sanitize_tracklist(tracklist, lang_code=None):
+    sanitized_tracklist = []
+    for trackname in tracklist:
+        sanitized_tracklist.append(sanitize_track(trackname, lang_code))
+    return sanitized_tracklist
+
+
+def input_string(trackname):
+    # string should be already sanitized!
     track_letterlist = list(trackname)
-    is_letter_valid = list(map(lambda x: x in set_complete, track_letterlist))
-    if not all(is_letter_valid):
-        # need to transliterate
-        track_letterlist = list(asciify(trackname, args))
     current_set = set_initial
     for letter in track_letterlist:
-        letter = letter_replace(letter)
         wanted_set, times_to_press = find_distance(letter)
         enter_correct_set(wanted_set, current_set)
         # use the sign on the modulo result to see if we are going left or right
@@ -125,6 +114,7 @@ def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
     write_to_pot(wipers['Record'], ad5245)
     time.sleep(PRESS)
     shutdown_pot(ad5245)
+    time.sleep(6)
 
 
 def next_track():
@@ -136,7 +126,9 @@ def pause_unpause():
 
 
 def write_toc():
+    print('Writing TOC...')
     push_button('Stop', PRESS, 1)
+    time.sleep(10)
 
 
 def tmark_it():
