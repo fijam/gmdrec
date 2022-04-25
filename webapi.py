@@ -58,7 +58,8 @@ def set_player(command):
         # unmute, no shuffle
         requests.post(f'{server_url}/api/player', params={'isMuted': 'false', 'playbackMode': '0'})
         requests.post(f'{server_url}/api/player/play/{playlist_id}/0')  # start from the top
-    requests.post(f'{server_url}/api/player/{command}')  # play, pause, stop
+    else:
+        requests.post(f'{server_url}/api/player/{command}')  # play, pause, stop
 
 
 def insert_2s():
