@@ -19,6 +19,14 @@ def hardware_setup():
     return pot
 
 
+def write_to_pot(value, pot):
+    pot.write(bytes([0x00 & 0xff, value & 0xff]))
+
+
+def shutdown_pot(pot):
+    pot.write(bytes([0x20 & 0xff, 0 & 0xff]))
+
+
 def eeprom_setup():
     try:
         eeprom = adafruit_24lc04.EEPROM_I2C(i2c)
@@ -29,9 +37,19 @@ def eeprom_setup():
         return 0
 
 
-def write_to_pot(value, pot):
-    pot.write(bytes([0x00 & 0xff, value & 0xff]))
+def eeprom_val(eeprom, i):
+    return int.from_bytes(eeprom[i], "big")
 
 
-def shutdown_pot(pot):
-    pot.write(bytes([0x20 & 0xff, 0 & 0xff]))
+def wipers_from_eeprom(eeprom):
+    wipers = {'Play': eeprom_val(eeprom, 1),
+              'Left': eeprom_val(eeprom, 2),
+              'Right': eeprom_val(eeprom, 3),
+              'Pause': eeprom_val(eeprom, 4),
+              'Stop': eeprom_val(eeprom, 5),
+              'VolUp': eeprom_val(eeprom, 6),
+              'TMark': eeprom_val(eeprom, 7),
+              'Playmode': eeprom_val(eeprom, 8),
+              'Display': eeprom_val(eeprom, 9),
+              'Record': eeprom_val(eeprom, 10)}
+    return wipers

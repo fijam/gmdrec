@@ -20,10 +20,6 @@ if recorder == 'R909/R910/N1 JPN':
     from definitions.r909_jpn import *
 
 
-def eeprom_val(i):
-    return int.from_bytes(eeprom[i], "big")
-
-
 def return_current_set(letter, current_set):
     # find out where we ended up, this carries over to the next letter
     if letter in set_katakana:
@@ -150,19 +146,10 @@ ad5245 = hardware_setup()
 shutdown_pot(ad5245)
 eeprom = eeprom_setup()
 
-if not wipers['Play']:
+if not any(wipers.values()):
     if eeprom:
-        wipers = {'Play': eeprom_val(1),
-                  'Left': eeprom_val(2),
-                  'Right': eeprom_val(3),
-                  'Pause': eeprom_val(4),
-                  'Stop': eeprom_val(5),
-                  'VolUp': eeprom_val(6),
-                  'TMark': eeprom_val(7),
-                  'Playmode': eeprom_val(8),
-                  'Display': eeprom_val(9),
-                  'Record': eeprom_val(10)}
-        print(f'calibration data found in eeprom: {wipers}')
-    if not eeprom:
+        wipers = wipers_from_eeprom(eeprom)
+        print(f"Calibration data found in eeprom: {wipers}")
+    else:
         print('Please enter calibration data in settings.conf ! \n')
         raise UserWarning
