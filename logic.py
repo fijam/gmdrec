@@ -122,7 +122,7 @@ def pause_unpause():
 def write_toc():
     print('Writing TOC...')
     push_button('Stop', PRESS, 1)
-    time.sleep(10)
+    time.sleep(12)
 
 
 def tmark_it():
