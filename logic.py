@@ -22,18 +22,12 @@ if recorder == 'R909/R910/N1 JPN':
 
 def return_current_set(letter, current_set):
     # find out where we ended up, this carries over to the next letter
-    if letter in set_katakana:
-        return 'katakana'
-    if letter in set_uppercase:
-        return 'uppercase'
-    if letter in set_lowercase:
-        return 'lowercase'
-    if letter in set_numbers:
-        return 'numbers'
-    if recorder in ['R55/R37', 'R55/R37 JPN']:  # the problem children
-        return set_initial
-        # note: this only works because .index on set_common characters returns the positions left of set_initial
-    return current_set
+    return 'katakana' if letter in set_katakana else \
+           'uppercase' if letter in set_uppercase else \
+           'lowercase' if letter in set_lowercase else \
+           'numbers' if letter in set_numbers else \
+           set_initial if recorder in ['R55/R37', 'R55/R37 JPN'] else \
+           current_set
 
 
 def enter_correct_set(wanted_set, current_set):
@@ -64,9 +58,12 @@ def letter_replace(trackname):
 
 def sanitize_track(trackname, lang_code=None):
     trackname = letter_replace(trackname)
-    if set(trackname) <= set(set_complete): return trackname
-    if lang_code: return Unihandecoder(lang=lang_code.casefold()).decode(trackname)
-    return Unihandecoder().decode(trackname)
+    if set(trackname) <= set(set_complete):
+        return trackname
+    if lang_code:
+        return Unihandecoder(lang=lang_code.casefold()).decode(trackname)
+    else:
+        return Unihandecoder().decode(trackname)
 
 
 def sanitize_tracklist(tracklist, lang_code=None):
