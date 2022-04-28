@@ -129,6 +129,19 @@ def main():
 if __name__ == '__main__':
     if have_gooey:
         main = Gooey(program_description='Record and label MDs on Sony portable recorders',
+                     menu=[{
+                         'name': 'About',
+                         'items': [{
+                             'type': 'AboutDialog',
+                             'menuTitle': 'Version',
+                             'name': 'gmdrec',
+                             'description': 'Record and label MDs on Sony portable recorders',
+                             'version': '0.7-beta',
+                             'copyright': '©2021 fijam',
+                             'website': 'https://github.com/fijam/gmdrec',
+                             'license': 'BSD-3-Clause'
+                         }]
+                     }],
                      tabbed_groups=False,
                      progress_regex=r"^Progress: (?P<current>-?\d+)/(?P<total>\d+)$",
                      progress_expr="current / total * 100",
