@@ -5,10 +5,8 @@ from itertools import chain
 HOLD = 2.3
 PRESS = 0.035
 labelling_entry_stop = 1
-change_set_moves = {'uppercase': {'uppercase': 1, 'lowercase': 2, 'numbers': 3},
-                    'lowercase': {'uppercase': 3, 'lowercase': 1, 'numbers': 2},
-                    'numbers':   {'uppercase': 2, 'lowercase': 3, 'numbers': 1}}
-set_initial = 'uppercase'
+charset_list = ['uppercase', 'lowercase', 'numbers']
+set_initial = charset_list[0]
 set_common = ["'", ',', '/', ':', ' ']
 set_uppercase = list(string.ascii_uppercase)
 set_lowercase = list(string.ascii_lowercase)

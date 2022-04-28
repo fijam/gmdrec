@@ -5,12 +5,8 @@ from itertools import chain
 HOLD = 2.1
 PRESS = 0.03
 labelling_entry_stop = 2
-change_set_moves = {'katakana':  {'katakana': 1, 'uppercase': 2, 'lowercase': 3, 'numbers': 4},
-                    'uppercase': {'katakana': 4, 'uppercase': 1, 'lowercase': 2, 'numbers': 3},
-                    'lowercase': {'katakana': 3, 'uppercase': 4, 'lowercase': 1, 'numbers': 2},
-                    'numbers':   {'katakana': 2, 'uppercase': 3, 'lowercase': 4, 'numbers': 1}
-                    }
-set_initial = 'katakana'
+charset_list = ['katakana', 'uppercase', 'lowercase', 'numbers']
+set_initial = charset_list[0]
 set_common = ["'", ',', '/', ':', ' ']
 set_uppercase = list(string.ascii_uppercase)
 set_lowercase = list(string.ascii_lowercase)

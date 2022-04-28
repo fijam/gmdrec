@@ -38,8 +38,9 @@ def return_current_set(letter, current_set):
 
 def enter_correct_set(wanted_set, current_set):
     # get from the current set to where we want to begin entry
-    times = change_set_moves[current_set][wanted_set]
-    push_button('Pause', PRESS, times)
+    d = charset_list.index(wanted_set) - charset_list.index(current_set)
+    times = d if d >= 0 else d + len(charset_list)
+    push_button('Pause', PRESS, times + 1)
 
 
 def find_distance(letter):
