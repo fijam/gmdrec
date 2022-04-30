@@ -1,9 +1,9 @@
 Gooey==1.0.8.1
-requests==2.26.0
+requests>=2.26.0
 Unihandecode==0.81
-Adafruit_Blinka==6.13.0
-Adafruit-PureIO==1.1.9
-Adafruit-PlatformDetect==3.15.3
+Adafruit_Blinka>=6.19.0
+Adafruit-PureIO>=1.1.9
+Adafruit-PlatformDetect>=3.21.0
 adafruit_circuitpython_busdevice==5.0.6
 hidapi==0.10.1
 spotipy==2.19.0
