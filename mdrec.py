@@ -9,13 +9,6 @@ from pprint import pprint
 from hardware import *
 
 try:
-    ad5245 = hardware_setup()
-except NameError:
-    print("Initialization skipped")
-else:
-    shutdown_pot(ad5245)
-
-try:
     from gooey import Gooey
     have_gooey = True
 except ImportError:
@@ -70,6 +63,9 @@ def main():
         tracklist = sanitize_tracklist(tracklist, args.lang_code)
         print('The playlist contains the following tracks:')
         pprint(tracklist)
+
+        if args.recorder in ['R909/R910/N1', 'R909/R910/N1 JPN']:
+            pulldown_on_data()
 
         if args.label_mode == 'OFF':
             print('Wait for REC Standby...')

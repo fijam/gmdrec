@@ -87,25 +87,26 @@ def input_string(trackname):
 
 def push_button(button, timing, times):
     for _ in range(times):
-        write_to_pot(wipers[button], ad5245)
+        write_to_pot(wipers[button])
         time.sleep(timing)
-        shutdown_pot(ad5245)
+        shutdown_pot()
         time.sleep(timing)
 
 
 def cleanup_exit():
     print('Cleaning up.')
-    shutdown_pot(ad5245)
+    shutdown_pot()
+    reset_pulldown()
     print('Bye!')
     sys.exit()
 
 
 def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
-    write_to_pot(wipers['Pause'], ad5245)
+    write_to_pot(wipers['Pause'])
     time.sleep(HOLD)
-    write_to_pot(wipers['Record'], ad5245)
+    write_to_pot(wipers['Record'])
     time.sleep(PRESS)
-    shutdown_pot(ad5245)
+    shutdown_pot()
     time.sleep(6)
 
 
@@ -138,16 +139,3 @@ def enter_labelling():
     time.sleep(0.1)
     push_button('Stop', PRESS, labelling_entry_stop)
     time.sleep(0.1)
-
-
-ad5245 = hardware_setup()
-shutdown_pot(ad5245)
-eeprom = eeprom_setup()
-
-if not any(wipers.values()):
-    if eeprom:
-        wipers = wipers_from_eeprom(eeprom)
-        print(f"Calibration data found in eeprom: {wipers}")
-    else:
-        print('Please enter calibration data in settings.conf ! \n')
-        raise UserWarning
