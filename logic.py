@@ -139,3 +139,7 @@ def enter_labelling():
     time.sleep(0.1)
     push_button('Stop', PRESS, labelling_entry_stop)
     time.sleep(0.1)
+
+
+if not any(wipers.values()):
+    wipers = wipers_from_eeprom()
