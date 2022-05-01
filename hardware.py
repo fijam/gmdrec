@@ -12,14 +12,14 @@ except RuntimeError:
 
 
 def read_mcp_eeprom(address):
-    # address is 6 to 15
+    # address range is 6 to 15
     result = bytearray(2)
     pot.write_then_readinto(bytes([(address & 15) << 4 | 12]), result)
     return int.from_bytes(result, 'big')
 
 
 def read_24c04_eeprom(address):
-    # address is 1 to 10
+    # address range is 1 to 10
     mem = I2CDevice(i2c, 0x50)
     result = bytearray(1)
     mem.write_then_readinto(bytes([address & 0xff]), result)
@@ -27,30 +27,15 @@ def read_24c04_eeprom(address):
 
 
 def wipers_from_eeprom():
+    wiper_list = ['Play', 'Left', 'Right', 'Pause', 'Stop', 'VolUp', 'Tmark', 'Playmode', 'Display', 'Record']
     if eeprom == 'mcp':
-        wipers = {'Play': read_mcp_eeprom(6),
-                  'Left': read_mcp_eeprom(7),
-                  'Right': read_mcp_eeprom(8),
-                  'Pause': read_mcp_eeprom(9),
-                  'Stop': read_mcp_eeprom(10),
-                  'VolUp': read_mcp_eeprom(11),
-                  'TMark': read_mcp_eeprom(12),
-                  'Playmode': read_mcp_eeprom(13),
-                  'Display': read_mcp_eeprom(14),
-                  'Record': read_mcp_eeprom(15)}
+        values = [read_mcp_eeprom(address) for address in range(6, 16)]
+        wipers = dict(zip(wiper_list, values))
         print(f"Calibration data found in eeprom: {wipers}")
         return wipers
     if eeprom == '24c04':
-        wipers = {'Play': read_24c04_eeprom(1),
-                  'Left': read_24c04_eeprom(2),
-                  'Right': read_24c04_eeprom(3),
-                  'Pause': read_24c04_eeprom(4),
-                  'Stop': read_24c04_eeprom(5),
-                  'VolUp': read_24c04_eeprom(6),
-                  'TMark': read_24c04_eeprom(7),
-                  'Playmode': read_24c04_eeprom(8),
-                  'Display': read_24c04_eeprom(9),
-                  'Record': read_24c04_eeprom(10)}
+        values = [read_24c04_eeprom(address) for address in range(1, 11)]
+        wipers = dict(zip(wiper_list, values))
         print(f"Calibration data found in eeprom: {wipers}")
         return wipers
     else:
