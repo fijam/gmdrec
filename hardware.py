@@ -14,7 +14,6 @@ Functions:
     shutdown_pot()
     write_to_pot()
     pulldown_on_data()
-    reset_pulldown()
 """
 import logging
 import os
@@ -80,15 +79,14 @@ def write_to_pot(value):
         pot.write(bytes([0x00 & 0xff, value & 0xff]))
 
 
-def pulldown_on_data():
-    datapin = digitalio.DigitalInOut(board.G2)
-    datapin.direction = digitalio.Direction.OUTPUT
-    datapin.value = False
-
-
-def reset_pulldown():
-    datapin = digitalio.DigitalInOut(board.G2)
-    datapin.direction = digitalio.Direction.INPUT
+def pulldown_on_data(state):
+    if state:
+        datapin = digitalio.DigitalInOut(board.G2)
+        datapin.direction = digitalio.Direction.OUTPUT
+        datapin.value = False  # False is logical 0
+    else:
+        datapin = digitalio.DigitalInOut(board.G2)
+        datapin.direction = digitalio.Direction.INPUT
 
 
 try:

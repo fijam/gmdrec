@@ -118,7 +118,7 @@ def push_button(button, timing, times):
 def cleanup_exit():
     print('Cleaning up.')
     shutdown_pot()
-    reset_pulldown()
+    pulldown_on_data(False)
     print('Bye!')
     sys.exit()
 

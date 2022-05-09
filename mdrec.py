@@ -65,7 +65,7 @@ def main():
         pprint(tracklist)
 
         if args.recorder in ['R909/R910/N1', 'R909/R910/N1 JPN']:
-            pulldown_on_data()
+            pulldown_on_data(True)
 
         if args.label_mode == 'OFF':
             print('Wait for REC Standby...')
