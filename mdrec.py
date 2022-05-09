@@ -143,7 +143,7 @@ if __name__ == '__main__':
                      progress_expr="current / total * 100",
                      hide_progress_msg=True,
                      optional_cols=2,
-                     default_size=(460, 620),
+                     default_size=(460, 640),
                      show_success_modal=False,
                      shutdown_signal=signal.CTRL_C_EVENT)(main)
     main()
