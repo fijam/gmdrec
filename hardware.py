@@ -1,3 +1,21 @@
+""" Talking to the hardware. Catching errors.
+
+Currently three hardware revisions are supported:
+
+    rev1: the original device with micro-usb in a plastic shell (MCP2221+AD5245)
+    rev2: StemmaQT accessory (AD5245+CAT24C04)
+    rev3: double-sided PCB in rev2 form factor with a USB A cable (MCP2221+MCP4262)
+
+Functions:
+
+    read_mcp_eeprom(address)
+    read_24c04_eeprom(address)
+    wipers_from_eeprom()
+    shutdown_pot()
+    write_to_pot()
+    pulldown_on_data()
+    reset_pulldown()
+"""
 import logging
 import os
 os.environ["BLINKA_MCP2221"] = "1"

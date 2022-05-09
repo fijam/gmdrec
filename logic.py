@@ -1,4 +1,26 @@
-# Finding out how many times to push a button and how.
+"""Finding out which button to push and how many times. Sanitizing input.
+
+Recorder-specific settings are loaded from the corresponding definition file.
+
+Functions:
+
+    return_current_set(letter, current_set)
+    enter_correct_set(wanted_set, current_set)
+    find_distance(letter)
+    letter_replace(trackname)
+    sanitize_track(trackname, lang_code)
+    sanitize_tracklist(tracklist, lang_code)
+    input_string(trackname)
+    push_button(button, timing, times)
+    cleanup_exit()
+    enter_rec_stby()
+    next_track()
+    pause_unpause()
+    write_toc()
+    tmark_it()
+    erase()
+    enter_labelling()
+"""
 import sys
 import time
 
