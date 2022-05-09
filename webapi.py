@@ -1,6 +1,7 @@
 # Talking to the music player and sanitizing data.
 import datetime
 import time
+import logging
 
 import requests
 from requests.exceptions import Timeout
@@ -12,7 +13,7 @@ def check_connection():
     try:
         requests.get(server_url, timeout=0.2)
     except Timeout:
-        print("Connection timed out. Make sure Foobar is running and the beefsam plugin is installed.")
+        logging.critical("Connection timed out. Make sure Foobar is running and the beefsam plugin is installed.")
         raise()
 
 
@@ -38,9 +39,9 @@ def request_playlist_content(args):
         total_time += int(response.json()['playlistItems']['items'][i]['columns'][1])
     print(f'Total playlist duration: {datetime.timedelta(seconds=total_time)}')
     if total_time >= 4800:
-        print('Warning: duration exceeds 80 minutes!')
+        logging.warning('playlist duration exceeds 80 minutes!')
     if item_count > 254:
-        print('Warning: cannot record more than 254 tracks!')
+        logging.warning('cannot record more than 254 tracks!')
     # return a list of tracks to label and total time
     return t_list
 

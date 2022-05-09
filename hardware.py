@@ -1,3 +1,4 @@
+import logging
 import os
 os.environ["BLINKA_MCP2221"] = "1"
 
@@ -8,7 +9,7 @@ try:
     i2c = busio.I2C(board.SCL, board.SDA)
     from adafruit_bus_device.i2c_device import I2CDevice
 except RuntimeError:
-    print("Titler not conneted to USB! \n")
+    logging.warning("Titler not conneted to USB! \n")
 
 
 def read_mcp_eeprom(address):
@@ -28,19 +29,22 @@ def read_24c04_eeprom(address):
 
 def wipers_from_eeprom():
     wiper_list = ['Play', 'Left', 'Right', 'Pause', 'Stop', 'VolUp', 'Tmark', 'Playmode', 'Display', 'Record']
-    if eeprom == 'mcp':
-        values = [read_mcp_eeprom(address) for address in range(6, 16)]
-        wipers = dict(zip(wiper_list, values))
-        print(f"Calibration data found in eeprom: {wipers}")
-        return wipers
-    if eeprom == '24c04':
-        values = [read_24c04_eeprom(address) for address in range(1, 11)]
-        wipers = dict(zip(wiper_list, values))
-        print(f"Calibration data found in eeprom: {wipers}")
-        return wipers
+    try:
+        if eeprom == 'mcp':
+            values = [read_mcp_eeprom(address) for address in range(6, 16)]
+        if eeprom == '24c04':
+            values = [read_24c04_eeprom(address) for address in range(1, 11)]
+        if not eeprom:
+            raise UserWarning
+
+    except UserWarning:
+        logging.critical('Please enter calibration data in settings.conf ! \n')
+        raise SystemExit
+
     else:
-        print('Please enter calibration data in settings.conf ! \n')
-        raise UserWarning
+        wipers = dict(zip(wiper_list, values))
+        logging.info(f"Calibration data found in {eeprom} eeprom: {wipers}")
+        return wipers
 
 
 def shutdown_pot():
@@ -71,21 +75,22 @@ def reset_pulldown():
 
 try:
     if 46 in i2c.scan():
-        print('rev3 board connected')
+        logging.info('rev3 board connected')
         from adafruit_blinka.microcontroller.mcp2221 import mcp2221
         mcp2221.mcp2221.gp_set_mode(3, 0b001)
         pot = I2CDevice(i2c, 0x2E)
         shutdown_pot()
         eeprom = 'mcp'
     elif 44 in i2c.scan() and 80 in i2c.scan():
-        print('rev2 board connected')
+        logging.info('rev2 board connected')
         pot = I2CDevice(i2c, 0x2C)
         shutdown_pot()
         eeprom = '24c04'
     elif 44 in i2c.scan() and 80 not in i2c.scan():
-        print('rev1 board connected')
+        logging.info('rev1 board connected')
         pot = I2CDevice(i2c, 0x2C)
         shutdown_pot()
         eeprom = None
 except NameError:
+    eeprom = None
     pass
