@@ -16,5 +16,4 @@ URI = ''
 
 client_id = settings['client_id']
 client_secret = settings['client_secret']
-server_url = settings['server_url']
 wipers = settings['calibration']

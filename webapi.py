@@ -17,12 +17,12 @@ import logging
 import requests
 from requests.exceptions import Timeout
 
-from settings import server_url
+SERVER_URL = 'http://127.0.0.1:8880'
 
 
 def check_connection():
     try:
-        requests.get(server_url, timeout=0.2)
+        requests.get(SERVER_URL, timeout=0.2)
     except Timeout:
         logging.critical("Connection timed out. Make sure Foobar is running and the beefsam plugin is installed.")
         raise()
@@ -31,7 +31,7 @@ def check_connection():
 def request_playlist_content(args):
     t_list = []
     total_time = 0
-    response_playlist = requests.get(f'{server_url}/api/playlists')
+    response_playlist = requests.get(f'{SERVER_URL}/api/playlists')
     playlist_list = response_playlist.json()['playlists']
     for dictionary in playlist_list:
         if dictionary['isCurrent']:
@@ -42,7 +42,7 @@ def request_playlist_content(args):
     payload = {'playlists': 'false', 'playlistItems': 'true',
                'plref': playlist_id, 'plrange': f'0:{item_count}',
                'plcolumns': args.label+', %length_seconds%'}
-    response = requests.get(server_url+'/api/query', params=payload)
+    response = requests.get(SERVER_URL+'/api/query', params=payload)
 
     for i in range(item_count):
         track_name = response.json()['playlistItems']['items'][i]['columns'][0]
@@ -58,7 +58,7 @@ def request_playlist_content(args):
 
 
 def request_track_time():
-    response = requests.get(f'{server_url}/api/player')
+    response = requests.get(f'{SERVER_URL}/api/player')
     duration = response.json()['player']['activeItem']['duration']
     position = response.json()['player']['activeItem']['position']
     # return remaining time in track (seconds)
@@ -68,10 +68,10 @@ def request_track_time():
 def set_player(command):
     if command == 'mode_play':
         # unmute, no shuffle
-        requests.post(f'{server_url}/api/player', params={'isMuted': 'false', 'playbackMode': '0'})
-        requests.post(f'{server_url}/api/player/play/{playlist_id}/0')  # start from the top
+        requests.post(f'{SERVER_URL}/api/player', params={'isMuted': 'false', 'playbackMode': '0'})
+        requests.post(f'{SERVER_URL}/api/player/play/{playlist_id}/0')  # start from the top
     else:
-        requests.post(f'{server_url}/api/player/{command}')  # play, pause, stop
+        requests.post(f'{SERVER_URL}/api/player/{command}')  # play, pause, stop
 
 
 def insert_2s():
