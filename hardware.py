@@ -36,7 +36,7 @@ def read_24c04_eeprom(address):
 
 
 def wipers_from_eeprom():
-    wiper_list = ['Play', 'Left', 'Right', 'Pause', 'Stop', 'VolUp', 'Tmark', 'Playmode', 'Display', 'Record']
+    wiper_list = ['Play', 'Left', 'Right', 'Pause', 'Stop', 'VolUp', 'TMark', 'Playmode', 'Display', 'Record']
     try:
         if eeprom == 'mcp':
             values = [read_mcp_eeprom(address) for address in range(6, 16)]
