@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""This is the main module of gmdrec."""
+
+__version__ = '0.7b2'
+
 import argparse
 import functools
 import signal
@@ -126,7 +130,7 @@ if __name__ == '__main__':
                              'menuTitle': 'Version',
                              'name': 'gmdrec',
                              'description': 'Record and label MDs on Sony portable recorders',
-                             'version': '0.7-beta',
+                             'version': __version__,
                              'copyright': '©2021 fijam',
                              'website': 'https://github.com/fijam/gmdrec',
                              'license': 'BSD-3-Clause'
