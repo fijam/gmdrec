@@ -58,7 +58,7 @@ def main():
         if have_gooey: print('Progress: -1/1')
         check_connection()
         tracklist = request_playlist_content(args)
-        tracklist = sanitize_tracklist(tracklist, args.lang_code)
+        tracklist = sanitize_tracklist(tracklist, args.language_code)
         print('The playlist contains the following tracks:')
         pprint(tracklist)
 
@@ -103,7 +103,7 @@ def main():
         if have_gooey: print('Progress: -1/1')
 
         if args.disc_title is not None:
-            disc_title = sanitize_track(args.disc_title, args.lang_code)
+            disc_title = sanitize_track(args.disc_title, args.language_code)
             print(f'Labelling the disc: {disc_title}')
             enter_labelling()
             if args.label_mode == 'ERASE': erase()
