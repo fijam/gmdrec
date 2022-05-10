@@ -1,7 +1,7 @@
+"""MZ-R909/R910/N1 Japanese firmware"""
 import string
 from itertools import chain
 
-# MZ-R909/R910/N1 Japanese firmware:
 HOLD = 2.1
 PRESS = 0.03
 labelling_entry_stop = 2

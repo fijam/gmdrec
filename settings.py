@@ -1,7 +1,4 @@
-""" Loading user settings.
-
-    Probably should expose a dataclass.
-"""
+""" Loading user settings."""
 import yaml
 import logging
 

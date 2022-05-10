@@ -1,14 +1,6 @@
 """Talking to the music player over the REST API provided by beefweb.
 
 API spec at https://hyperblast.org/beefweb/api/
-
-Functions:
-
-    check_connection()
-    request_playlist_content(args)
-    request_track_time()
-    set_player(command)
-    insert_2s()
 """
 import datetime
 import time
