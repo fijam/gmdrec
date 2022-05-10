@@ -3,11 +3,10 @@
 Recorder-specific settings are loaded from the corresponding definition file.
 """
 import sys
-import time
 
 from unihandecode import Unihandecoder
 from hardware import *
-from settings import wipers, recorder
+from settings import recorder
 
 if recorder == 'R55/R37':
     from definitions.r55 import *
@@ -88,14 +87,6 @@ def input_string(trackname):
     push_button('Stop', HOLD, 1)  # finish entry
 
 
-def push_button(button, timing, times):
-    for _ in range(times):
-        write_to_pot(wipers[button])
-        time.sleep(timing)
-        shutdown_pot()
-        time.sleep(timing)
-
-
 def cleanup_exit():
     print('Cleaning up.')
     shutdown_pot()
@@ -105,11 +96,8 @@ def cleanup_exit():
 
 
 def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
-    write_to_pot(wipers['Pause'])
-    time.sleep(HOLD)
-    write_to_pot(wipers['Record'])
-    time.sleep(PRESS)
-    shutdown_pot()
+    push_button('Pause', HOLD, 1, False)
+    push_button('Record', PRESS, 1)
     time.sleep(6)
 
 
@@ -142,7 +130,3 @@ def enter_labelling():
     time.sleep(0.1)
     push_button('Stop', PRESS, labelling_entry_stop)
     time.sleep(0.1)
-
-
-if not any(wipers.values()):
-    wipers = wipers_from_eeprom()

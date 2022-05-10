@@ -7,8 +7,11 @@ Currently three hardware revisions are supported:
     rev3: double-sided PCB in rev2 form factor with a USB A cable (MCP2221+MCP4262)
 """
 import logging
+import time
 import os
 os.environ["BLINKA_MCP2221"] = "1"
+
+from settings import wipers
 
 try:
     import board
@@ -50,9 +53,9 @@ def wipers_from_eeprom():
         raise SystemExit
 
     else:
-        wipers = dict(zip(wiper_list, values))
-        logging.info(f"Calibration data found in {eeprom} eeprom: {wipers}")
-        return wipers
+        cal = dict(zip(wiper_list, values))
+        logging.info(f"Calibration data found in {eeprom} eeprom: {cal}")
+        return cal
 
 
 def shutdown_pot():
@@ -80,6 +83,15 @@ def pulldown_on_data(state):
         datapin.direction = digitalio.Direction.INPUT
 
 
+def push_button(button, timing, times, shutdown=True):
+    for _ in range(times):
+        write_to_pot(wipers[button])
+        time.sleep(timing)
+        if shutdown:
+            shutdown_pot()
+            time.sleep(timing)
+
+
 try:
     if 46 in i2c.scan():
         logging.info('rev3 board connected')
@@ -101,3 +113,6 @@ try:
 except NameError:
     eeprom = None
     pass
+else:
+    if not any(wipers.values()):
+        wipers = wipers_from_eeprom()
