@@ -10,7 +10,7 @@ import sys
 import time
 from pprint import pprint
 
-from hardware import *
+from hardware import pulldown_on_data
 
 try:
     from gooey import Gooey

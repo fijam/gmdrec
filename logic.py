@@ -3,9 +3,10 @@
 Recorder-specific settings are loaded from the corresponding definition file.
 """
 import sys
+import time
 
 from unihandecode import Unihandecoder
-from hardware import *
+from hardware import push_button, shutdown_pot, pulldown_on_data
 from settings import recorder
 
 if recorder == 'R55/R37':
