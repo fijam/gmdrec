@@ -28,20 +28,20 @@ sys.stdout.reconfigure(encoding='utf-8')
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('label', default='%artist% - %title%',
-                        help='Track format (e.g. %track number% - %title%)')
+                        help='Format of track labels')
     parser.add_argument('recorder', default='R70 through N707', choices=['R55/R37',
                                                                          'R55/R37 JPN',
                                                                          'R70 through N707',
                                                                          'R70 through N707 JPN',
                                                                          'R909/R910/N1',
                                                                          'R909/R910/N1 JPN'],
-                        help='Sony portable model')
+                        help='Sony MD recorder model')
     parser.add_argument('--disc-title', dest='disc_title', action='store',
-                        help='Album title')
-    parser.add_argument('--language-hint', dest='lang_code',
-                        help='Transliteration hint (e.g. ja)')
+                        help='for labelling a disc')
+    parser.add_argument('--language-hint', dest='language_code',
+                        help='for transliteration')
     parser.add_argument('--only_label', default='OFF', dest='label_mode', choices=['OFF', 'ON', 'ERASE'],
-                        help='Label a recorded disc')
+                        help='for disc relabelling')
     parser.add_argument('--no-tmarks', dest='no_tmarks', action='store_true',
                         help='Add 2s of silence instead of TMarks between tracks')
     return parser.parse_args()
@@ -140,8 +140,8 @@ if __name__ == '__main__':
                      progress_regex=r"^Progress: (?P<current>-?\d+)/(?P<total>\d+)$",
                      progress_expr="current / total * 100",
                      hide_progress_msg=True,
-                     optional_cols=2,
-                     default_size=(460, 640),
+                     optional_cols=3,
+                     default_size=(460, 550),
                      show_success_modal=False,
                      shutdown_signal=signal.CTRL_C_EVENT)(main)
     main()
