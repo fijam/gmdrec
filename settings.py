@@ -12,8 +12,5 @@ except (FileNotFoundError, IOError):
     logging.warning('settings.conf file not found')
 
 recorder = ''
-URI = ''
 
-client_id = settings['client_id']
-client_secret = settings['client_secret']
 wipers = settings['calibration']

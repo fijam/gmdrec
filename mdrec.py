@@ -36,8 +36,6 @@ def parse_arguments():
                         help='Album title')
     parser.add_argument('--language-hint', dest='lang_code',
                         help='Transliteration hint (e.g. ja)')
-    parser.add_argument('--spotify', dest='spotify',
-                        help='playlist URI')
     parser.add_argument('--only_label', default='OFF', dest='label_mode', choices=['OFF', 'ON', 'ERASE'],
                         help='Label a recorded disc')
     parser.add_argument('--no-tmarks', dest='no_tmarks', action='store_true',
@@ -50,11 +48,7 @@ def main():
     import settings
     settings.recorder = args.recorder
     from logic import enter_labelling, sanitize_tracklist, sanitize_track, input_string, cleanup_exit, enter_rec_stby, pause_unpause, erase, write_toc, tmark_it, next_track
-    if args.spotify is not None:
-        settings.URI = args.spotify
-        from spot import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
-    else:
-        from webapi import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
+    from webapi import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
 
     try:
         if have_gooey: print('Progress: -1/1')
