@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This is the main module of gmdrec."""
 
-__version__ = '0.7b2'
+__version__ = '0.7b3'
 
 import argparse
 import functools
@@ -10,7 +10,7 @@ import sys
 import time
 from pprint import pprint
 
-from hardware import pulldown_on_data
+from hardware import pulldown_on_data, cleanup_exit
 
 try:
     from gooey import Gooey
@@ -51,7 +51,7 @@ def main():
     args = parse_arguments()
     import settings
     settings.recorder = args.recorder
-    from logic import enter_labelling, sanitize_tracklist, sanitize_track, input_string, cleanup_exit, enter_rec_stby, pause_unpause, erase, write_toc, tmark_it, next_track
+    from logic import enter_labelling, sanitize_tracklist, sanitize_track, input_string, enter_rec_stby, pause_unpause, erase, write_toc, tmark_it, next_track
     from webapi import check_connection, request_playlist_content, request_track_time, set_player, insert_2s
 
     try:

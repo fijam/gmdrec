@@ -92,6 +92,14 @@ def push_button(button, timing, times, shutdown=True):
             time.sleep(timing)
 
 
+def cleanup_exit():
+    print('Cleaning up.')
+    shutdown_pot()
+    pulldown_on_data(False)
+    print('Bye!')
+    raise SystemExit
+
+
 try:
     if 46 in i2c.scan():
         logging.info('rev3 board connected')

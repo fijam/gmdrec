@@ -2,11 +2,10 @@
 
 Recorder-specific settings are loaded from the corresponding definition file.
 """
-import sys
 import time
 
 from unihandecode import Unihandecoder
-from hardware import push_button, shutdown_pot, pulldown_on_data
+from hardware import push_button
 from settings import recorder
 
 if recorder == 'R55/R37':
@@ -86,14 +85,6 @@ def input_string(trackname):
         push_button('Stop', PRESS, 1)  # advance to next letter
         current_set = return_current_set(letter, current_set)
     push_button('Stop', HOLD, 1)  # finish entry
-
-
-def cleanup_exit():
-    print('Cleaning up.')
-    shutdown_pot()
-    pulldown_on_data(False)
-    print('Bye!')
-    sys.exit()
 
 
 def enter_rec_stby():  # don't shut down pot to simulate 'hold and press'
