@@ -3,7 +3,7 @@ import string
 from itertools import chain
 
 HOLD = 2.3
-PRESS = 0.035
+PRESS = 0.050
 labelling_entry_stop = 1
 charset_list = ['uppercase', 'lowercase', 'numbers']
 set_initial = charset_list[0]
