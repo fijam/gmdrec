@@ -4,7 +4,7 @@ Currently three hardware revisions are supported:
 
     rev1: the original device with micro-usb in a plastic shell (MCP2221+AD5245)
     rev2: StemmaQT accessory (AD5245+CAT24C04)
-    rev3: double-sided PCB in rev2 form factor with a USB A cable (MCP2221+MCP4262)
+    rev3: double-sided PCB in rev2 form factor with a USB A cable (MCP2221+MCP4562)
 """
 import logging
 import time
@@ -115,15 +115,13 @@ try:
     if read_mcp_status() == bytearray([0x01, 0xf0]):  # 0b11110000
         logging.info('rev3 board connected')
         from adafruit_blinka.microcontroller.mcp2221 import mcp2221
-        mcp2221.mcp2221.gp_set_mode(3, 0b001)
+        mcp2221.mcp2221.gp_set_mode(3, 0b001)  # GP3 LED_I2C
         write_to_pot = write_pot_mcp4562
         shutdown_pot = shutdown_pot_mcp4562
-        shutdown_pot()
         eeprom = 'mcp'
     elif 44 in i2c.scan():
         write_to_pot = write_pot_ad5245
         shutdown_pot = shutdown_pot_ad5245
-        shutdown_pot()
         if 80 in i2c.scan():
             logging.info('rev2 board connected')
             eeprom = '24c04'
@@ -134,5 +132,6 @@ except NameError:
     eeprom = None
     pass
 else:
+    shutdown_pot()
     if not any(wipers.values()):
         wipers = wipers_from_eeprom()
