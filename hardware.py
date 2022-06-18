@@ -9,9 +9,11 @@ Currently three hardware revisions are supported:
 import logging
 import time
 import os
+from settings import wipers
+
 os.environ["BLINKA_MCP2221"] = "1"
 
-from settings import wipers
+# logging.basicConfig(level=logging.INFO)
 
 try:
     import board
@@ -58,19 +60,27 @@ def wipers_from_eeprom():
         return cal
 
 
-def shutdown_pot():
-    if pot.device_address == 46:
-        pot.write(bytes([0x40 & 0xff, 0xf9 & 0xff]))
-    elif pot.device_address == 44:
-        pot.write(bytes([0x20 & 0xff, 0 & 0xff]))
+def shutdown_pot_ad5245():
+    pot.write(bytes([0x20 & 0xff, 0 & 0xff]))
 
 
-def write_to_pot(value):
-    if pot.device_address == 46:
-        pot.write(bytes([0x00 & 0xff, value & 0xff]))
-        pot.write(bytes([0x40 & 0xff, 0xff]))  # resume from shutdown
-    elif pot.device_address == 44:
-        pot.write(bytes([0x00 & 0xff, value & 0xff]))
+def shutdown_pot_mcp4562():
+    pot.write(bytes([0x40 & 0xff, 0xf9 & 0xff]))
+
+
+def write_pot_ad5245(value):
+    pot.write(bytes([0x00 & 0xff, value & 0xff]))
+
+
+def write_pot_mcp4562(value):
+    pot.write(bytes([0x00 & 0xff, value & 0xff]))
+    pot.write(bytes([0x40 & 0xff, 0xff]))  # resume from shutdown
+
+
+def read_mcp_status():  # read status register at 05h to check for mcp4562
+    result = bytearray(2)
+    pot.write_then_readinto(bytes([(5 & 15) << 4 | 12]), result)
+    return result
 
 
 def pulldown_on_data(state):
@@ -101,23 +111,25 @@ def cleanup_exit():
 
 
 try:
-    if 46 in i2c.scan():
+    pot = I2CDevice(i2c, 0x2C)
+    if read_mcp_status() == bytearray([0x01, 0xf0]):  # 0b11110000
         logging.info('rev3 board connected')
         from adafruit_blinka.microcontroller.mcp2221 import mcp2221
         mcp2221.mcp2221.gp_set_mode(3, 0b001)
-        pot = I2CDevice(i2c, 0x2E)
+        write_to_pot = write_pot_mcp4562
+        shutdown_pot = shutdown_pot_mcp4562
         shutdown_pot()
         eeprom = 'mcp'
-    elif 44 in i2c.scan() and 80 in i2c.scan():
-        logging.info('rev2 board connected')
-        pot = I2CDevice(i2c, 0x2C)
+    elif 44 in i2c.scan():
+        write_to_pot = write_pot_ad5245
+        shutdown_pot = shutdown_pot_ad5245
         shutdown_pot()
-        eeprom = '24c04'
-    elif 44 in i2c.scan() and 80 not in i2c.scan():
-        logging.info('rev1 board connected')
-        pot = I2CDevice(i2c, 0x2C)
-        shutdown_pot()
-        eeprom = None
+        if 80 in i2c.scan():
+            logging.info('rev2 board connected')
+            eeprom = '24c04'
+        else:
+            logging.info('rev1 board connected')
+            eeprom = None
 except NameError:
     eeprom = None
     pass

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This is the main module of gmdrec."""
 
-__version__ = '0.7b3'
+__version__ = '0.7b4'
 
 import argparse
 import functools
