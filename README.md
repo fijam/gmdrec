@@ -7,6 +7,10 @@ Compatible models include: R55, R37, R70, R90, R91, R700, R701, R900, N707, R909
 
 Need to be tested: G755, G750
 
+[Quick start guide for Windows](https://github.com/fijam/gmdrec/wiki/Windows-Quick-Start-Guide)
+
+[Quick start guide for Linux](https://github.com/fijam/gmdrec/wiki/Linux-setup)
+
 ## Demo
 [![title-card](https://user-images.githubusercontent.com/75824/136713970-b0210516-68b6-4405-a2c9-558976e5be58.png)](https://www.youtube.com/watch?v=6wfP5BtrBSM)
 
