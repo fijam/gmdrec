@@ -39,7 +39,9 @@ def request_playlist_content(args):
     for i in range(item_count):
         track_name = response.json()['playlistItems']['items'][i]['columns'][0]
         t_list.append(track_name)
-        total_time += int(response.json()['playlistItems']['items'][i]['columns'][1])
+        track_duration = response.json()['playlistItems']['items'][i]['columns'][1].strip()
+        if track_duration.isdecimal():
+            total_time += int(track_duration)
     print(f'Total playlist duration: {datetime.timedelta(seconds=total_time)}')
     if total_time >= 4800:
         logging.warning('playlist duration exceeds 80 minutes!')
