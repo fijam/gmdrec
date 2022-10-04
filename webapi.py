@@ -34,7 +34,7 @@ def request_playlist_content(args):
     payload = {'playlists': 'false', 'playlistItems': 'true',
                'plref': playlist_id, 'plrange': f'0:{item_count}',
                'plcolumns': args.label+', %length_seconds%'}
-    response = requests.get(SERVER_URL+'/api/query', params=payload)
+    response = requests.get(f'{SERVER_URL}/api/query', params=payload)
 
     for i in range(item_count):
         track_name = response.json()['playlistItems']['items'][i]['columns'][0]
