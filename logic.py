@@ -53,8 +53,8 @@ def find_distance(letter):
 
 
 def letter_replace(trackname):
-    change_from = "[{「『]}」』|。・、"
-    change_to = "(((())))I.-,"
+    change_from = "[{「『』」}]|。、・~\\"
+    change_to = "(((())))I.,--/"
     return trackname.translate(trackname.maketrans(change_from, change_to))
 
 
@@ -78,6 +78,8 @@ def input_string(trackname):
     track_letterlist = list(trackname)
     current_set = set_initial
     for letter in track_letterlist:
+        if letter not in set_complete:
+            letter = '?'
         wanted_set, times_to_press = find_distance(letter)
         enter_correct_set(wanted_set, current_set)
         # use the sign on the modulo result to see if we are going left or right
