@@ -13,7 +13,7 @@ from settings import wipers
 
 os.environ["BLINKA_MCP2221"] = "1"
 
-# logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
 
 try:
     import board
@@ -77,10 +77,21 @@ def write_pot_mcp4562(value):
     pot.write(bytes([0x40 & 0xff, 0xff]))  # resume from shutdown
 
 
-def read_mcp_status():  # read status register at 05h to check for mcp4562
+def is_rev3():
+    """
+    #rev3 was supposed to have the digipot on a different i2c address but doesn't so we need to detect it differently.
+    - read status register (05h) on mcp4562
+    - returns 10 bits (in 2 bytes)
+    D8-D4: set to 1
+    D3: currently writing to eeprom (should be 0)
+    D2: is wiper lock for R network 1 engaged (should be 0)
+    D1: is wiper lock for R network 0 engaged (should be 0)
+    D0: is EEPROM write-protected (should be 0)
+    0b111110000 = 0x01, 0xf0
+    """
     result = bytearray(2)
     pot.write_then_readinto(bytes([(5 & 15) << 4 | 12]), result)
-    return result
+    return True if result == bytearray([0x01, 0xf0]) else False
 
 
 def pulldown_on_data(state):
@@ -112,7 +123,7 @@ def cleanup_exit():
 
 try:
     pot = I2CDevice(i2c, 0x2C)
-    if read_mcp_status() == bytearray([0x01, 0xf0]):  # 0b11110000
+    if is_rev3():
         logging.info('rev3 board connected')
         from adafruit_blinka.microcontroller.mcp2221 import mcp2221
         mcp2221.mcp2221.gp_set_mode(3, 0b001)  # GP3 LED_I2C
