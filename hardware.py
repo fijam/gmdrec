@@ -63,14 +63,18 @@ def wipers_from_eeprom():
 def shutdown_pot_ad5245():
     pot.write(bytes([0x20 & 0xff, 0 & 0xff]))
 
+def shutdown_pot_mcp4551():
+    pot.write(bytes([0b01000000, 0b11111001]))
 
 def shutdown_pot_mcp4562():
     pot.write(bytes([0x40 & 0xff, 0xf9 & 0xff]))
 
-
 def write_pot_ad5245(value):
     pot.write(bytes([0x00 & 0xff, value & 0xff]))
 
+def write_pot_mcp4551():
+    pot.write(bytes([0x00 & 0xff, value & 0xff]))
+    # does this need the 'resume from shutdown?' 
 
 def write_pot_mcp4562(value):
     pot.write(bytes([0x00 & 0xff, value & 0xff]))
@@ -120,25 +124,56 @@ def cleanup_exit():
     print('Bye!')
     raise SystemExit
 
-
 try:
-    pot = I2CDevice(i2c, 0x2C)
-    if is_rev3():
-        logging.info('rev3 board connected')
+    # Scan the I2C bus first to get available device addresses
+    available_devices = i2c.scan()
+    logging.info(f"Available I2C devices: {available_devices}")
+
+    # Initialize pot variable to None, to be set based on detected board
+    pot = None
+
+    # Check for rev3-4551 first due to its unique I2C address
+    if 0x2E in available_devices:
+        logging.info('rev3-4551 board connected')
+        pot = I2CDevice(i2c, 0x2E)  # Setup for rev3-4551
         from adafruit_blinka.microcontroller.mcp2221 import mcp2221
         mcp2221.mcp2221.gp_set_mode(3, 0b001)  # GP3 LED_I2C
-        write_to_pot = write_pot_mcp4562
-        shutdown_pot = shutdown_pot_mcp4562
-        eeprom = 'mcp'
-    elif 44 in i2c.scan():
-        write_to_pot = write_pot_ad5245
-        shutdown_pot = shutdown_pot_ad5245
-        if 80 in i2c.scan():
+        write_to_pot = write_pot_mcp4551
+        shutdown_pot = shutdown_pot_mcp4551
+        eeprom = None
+    elif 0x2C in available_devices:
+        # Now that we know 0x2C is present, we can proceed with additional rev3 checks
+        if is_rev3():
+            logging.info('rev3 board connected')
+            pot = I2CDevice(i2c, 0x2C)  # Setup for rev3
+            if is_rev3():
+                from adafruit_blinka.microcontroller.mcp2221 import mcp2221
+                mcp2221.mcp2221.gp_set_mode(3, 0b001)  # GP3 LED_I2C
+                write_to_pot = write_pot_mcp4562
+                shutdown_pot = shutdown_pot_mcp4562
+                eeprom = 'mcp'
+        else:
+            # If the device at 0x2C is not rev3, handle accordingly (maybe rev1 or an unknown device)
+            logging.info('Device at 0x2C is not rev3 or is an unknown revision')
+            # Additional handling based on your requirements
+    elif 44 in available_devices:
+        # Handle rev1 and rev2 detection
+        if 80 in available_devices:
             logging.info('rev2 board connected')
-            eeprom = '24c04'
+            # Setup for rev2...
         else:
             logging.info('rev1 board connected')
-            eeprom = None
+            # Setup for rev1...
+
+    if pot is None:
+        logging.error("No known board detected.")
+        raise SystemExit
+
+except Exception as e:
+    logging.error(f"An error occurred: {e}")
+    raise SystemExit
+
+
 except NameError:
     eeprom = None
     pass
