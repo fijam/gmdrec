@@ -1,4 +1,3 @@
-Gooey==1.0.8.1
 requests>=2.26.0
 Unihandecode==0.81
 Adafruit_Blinka>=6.20.4
