@@ -4,7 +4,9 @@ Currently three hardware revisions are supported:
 
     rev1: the original device with micro-usb in a plastic shell (MCP2221+AD5245)
     rev2: StemmaQT accessory (AD5245+CAT24C04)
-    rev3: double-sided PCB in rev2 form factor with a USB A cable (MCP2221+MCP4562)
+    rev3a: double-sided PCB in rev2 form factor with a USB A cable (MCP2221+MCP4562)
+    rev3b: single-sided PCB with micro-USB connector (MCP2221+MCP4562)
+                * electrically like rev3a, same i2c address for MCP4562
 """
 import logging
 import time
