@@ -16,7 +16,7 @@ def check_connection():
     try:
         requests.get(SERVER_URL, timeout=0.2)
     except Timeout:
-        logging.critical("Connection timed out. Make sure Foobar is running and the beefsam plugin is installed.")
+        logging.critical("Connection timed out. Make sure Foobar is running and the beefweb plugin is installed.")
         raise()
 
 
