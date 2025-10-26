@@ -4,4 +4,5 @@ Unihandecode==0.81
 Adafruit_Blinka>=6.20.4
 Adafruit-PlatformDetect>=3.21.0
 adafruit_circuitpython_busdevice>=5.1.4
-hidapi==0.10.1
+hidapi==0.13.1
+pyyaml>=5.4.1
