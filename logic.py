@@ -12,9 +12,11 @@ if recorder == 'R55/R37':
     from definitions.r55 import *
 if recorder == 'R55/R37 JPN':
     from definitions.r55_jpn import *
-if recorder == 'R70 through N707':
+if recorder == 'R70 to N707':
     from definitions.r90 import *
-if recorder == 'R70 through N707 JPN':
+if recorder == 'R70 to N707 JPN':
+    from definitions.r90_jpn import *
+if recorder == 'R70/R90 JPN early FW':
     from definitions.r90_jpn import *
 if recorder == 'R909/R910/N1':
     from definitions.r909 import *
@@ -28,6 +30,7 @@ def return_current_set(letter, current_set):
            'uppercase' if letter in set_uppercase else \
            'lowercase' if letter in set_lowercase else \
            'numbers' if letter in set_numbers else \
+           'katakana' if letter != ' ' and recorder in ['R70/R90 JPN early FW'] else \
            set_initial if recorder in ['R55/R37', 'R55/R37 JPN'] else \
            current_set
 
@@ -75,9 +78,8 @@ def sanitize_tracklist(tracklist, lang_code=None):
 
 def input_string(trackname):
     # string should be already sanitized!
-    track_letterlist = list(trackname)
     current_set = set_initial
-    for letter in track_letterlist:
+    for letter in list(trackname):
         if letter not in set_complete:
             letter = '?'
         wanted_set, times_to_press = find_distance(letter)

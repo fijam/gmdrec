@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """This is the main module of gmdrec."""
 
-__version__ = '0.7.2'
+__version__ = '0.7.3b1'
 
 import argparse
 import functools
@@ -29,10 +29,11 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('label', default='%artist% - %title%',
                         help='Format of track labels')
-    parser.add_argument('recorder', default='R70 through N707', choices=['R55/R37',
+    parser.add_argument('recorder', default='R70 to N707', choices=['R55/R37',
                                                                          'R55/R37 JPN',
-                                                                         'R70 through N707',
-                                                                         'R70 through N707 JPN',
+                                                                         'R70 to N707',
+                                                                         'R70 to N707 JPN',
+                                                                         'R70/R90 JPN early FW',
                                                                          'R909/R910/N1',
                                                                          'R909/R910/N1 JPN'],
                         help='Sony MD recorder model')
